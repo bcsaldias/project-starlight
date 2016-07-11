@@ -61,7 +61,7 @@ ROOT_URLCONF = 'starlight.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/templates'],
+        'DIRS': [PROJECT_ROOT + '/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

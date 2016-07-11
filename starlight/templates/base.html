@@ -16,16 +16,19 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
     {% endblock %}
   </head>
   <body>
     {% block navbar %}
+      {% include '_navbar.html' %}
     {% endblock %}
 
     {% block content %}
     {% endblock %}
 
     {% block footer %}
+      {% include '_footer.html' %}
     {% endblock %}
 
     {% block scripts %}
