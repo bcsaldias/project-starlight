@@ -5,11 +5,11 @@ from django.shortcuts import render
 
 
 def login(request):
-    return HttpResponse("Login")
+    return render(request, 'user/login.html')
 
 
 def register(request):
-    return HttpResponse("Register")
+    return render(request, 'user/register.html')
 
 
 def logout(request):
@@ -17,16 +17,31 @@ def logout(request):
 
 
 def ranking(request):
-    return HttpResponse("User Ranking")
+    return render(request, 'user/ranking.html')
 
 
 def profile(request, username):
-    return HttpResponse("Profile Page of user: %s" % username)
+    context = {
+        'user': {
+            'username': username
+        }
+    }
+    return render(request, 'user/profile.html', context)
 
 
 def dashboard(request, username):
-    return HttpResponse("Dashboard of user: %s" % username)
+    context = {
+        'user': {
+            'username': username
+        }
+    }
+    return render(request, 'user/dashboard.html', context)
 
 
 def edit_profile(request, username):
-    return HttpResponse("Edit Profile of user: %s" % username)
+    context = {
+        'user': {
+            'username': username
+        }
+    }
+    return render(request, 'user/editprofile.html', context)

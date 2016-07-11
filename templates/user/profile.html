@@ -2,9 +2,10 @@
 
 {% block title %}
 {{ block.super }}
-Home
+{{ user.username }}
 {% endblock %}
 
 {% block content %}
-<h1>Index Page</h1>
+<h1>User Profile:</h1>
+<h2>{{ user.username }}</h2>
 {% endblock %}
