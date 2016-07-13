@@ -8,8 +8,12 @@ class Macho(models.Model):
     period = models.FloatField(default=0.0)
     true_label = models.PositiveSmallIntegerField(null=True)
 
+    def __str__(self):
+        return self.macho_id
+
 
 class MachoDetail(models.Model):
     macho = models.ForeignKey('Macho', on_delete=models.CASCADE)
-    mag = models.FloatField(default=0.0)
     mjd = models.FloatField(default=0.0)
+    mag = models.FloatField(default=0.0)
+    err = models.FloatField(default=0.0)

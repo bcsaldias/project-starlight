@@ -33,6 +33,7 @@ class MachoModelTestCase(TestCase):
 
         self.assertEqual(macho.macho_id, '1.3441.15')
         self.assertTrue(macho.periodicity)
+        self.assertEqual(macho.period, 10.41530736)
 
     def test_macho_detail_match(self):
         macho = create_Macho(self.macho_data)
