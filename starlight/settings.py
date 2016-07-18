@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'main',
     'user',
     'macho',
+    'hits',
 ]
 
 MIDDLEWARE_CLASSES = [

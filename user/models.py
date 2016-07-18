@@ -12,12 +12,17 @@ class Expert(models.Model):
     country = models.CharField(max_length=50, null=True, blank=True)
     # pic = models.
 
+    def save(self, macho):
+        SaveMACHO.objects.create(self, macho)
 
-# class SaveMACHO(models.Model):
-#     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
-#     macho = models.ForeignKey(Macho, on_delete=models.CASCADE)
-#
-#
+    def vote(self, macho, label):
+        pass
+
+
+class SaveMACHO(models.Model):
+    expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
+    macho = models.ForeignKey(Macho, on_delete=models.CASCADE)
+
 
 # class Activities(models.Model):
 #     timestamp = models.DateTimeField(auto_now_add=True)
