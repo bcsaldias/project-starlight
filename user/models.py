@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from macho.models import Macho
-
 
 class Expert(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -11,17 +9,10 @@ class Expert(models.Model):
     dob = models.DateField(null=True, blank=True)
     country = models.CharField(max_length=50, null=True, blank=True)
     # pic = models.
+    saved_hits = models.ManyToManyField('hits.Hits', through='hits.SaveHits')
 
-    def save(self, macho):
-        SaveMACHO.objects.create(self, macho)
-
-    def vote(self, macho, label):
-        pass
-
-
-class SaveMACHO(models.Model):
-    expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
-    macho = models.ForeignKey(Macho, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.username
 
 
 # class Activities(models.Model):

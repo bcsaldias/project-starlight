@@ -10,9 +10,9 @@ class DetailInline(admin.TabularInline):
 
 
 class HitsAdmin(admin.ModelAdmin):
-    list_display = ['hits_id', 'period', 'true_label']
+    list_display = ['hits_id', 'periodLS', 'true_label']
     inlines = [DetailInline]
-    readonly_fields = ('hits_id', 'periodicity', 'period', 'true_label',)
+    readonly_fields = ('hits_id', 'period_fit', 'periodLS', 'mag_mean', 'mag_std', 'true_label',)
 
 
 admin.site.register(Hits, HitsAdmin)
