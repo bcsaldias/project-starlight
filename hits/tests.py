@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from .models import Hits, HitsDetail, SaveHits
+from .models import Hits, SaveHits
 from user.models import Expert
 
 

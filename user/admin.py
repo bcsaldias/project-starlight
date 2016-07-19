@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from .models import Expert
+from .models import Expert, Activities
 
 
-admin.site.register(Expert)
+class DetailInline(admin.TabularInline):
+    model = Activities
+    extra = 0
+    can_delete = False
+
+
+class ExpertAdmin(admin.ModelAdmin):
+    inlines = [DetailInline]
+
+
+admin.site.register(Expert, ExpertAdmin)
