@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'(?P<username>[\w]+)/$', views.profile, name="profile"),
     url(r'(?P<username>[\w]+)/votes$', views.votes, name="votes"),
     url(r'(?P<username>[\w]+)/activities$', views.activities, name="activities"),
+    url(r'(?P<username>[\w]+)/saved$', views.saved, name="saved"),
     url(r'(?P<username>[\w]+)/edit-profile/$', views.edit_profile, name="edit_profile"),
     url(r'(?P<username>[\w]+)/update-password/$', views.update_password, name="update_passowrd"),
-    
 ]

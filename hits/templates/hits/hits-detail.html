@@ -1,0 +1,81 @@
+{% extends "base2.html" %}
+{% load staticfiles %}
+
+{% block title %}
+{{ block.super }}
+HiTS: {{ hits_id }}
+{% endblock %}
+
+{% block main-content %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <div id="plot-main"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <div id="plot-fold"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block right-side %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight" id="hits-profile">
+      <ul class="list-unstyled">
+        <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits_id }}">{{ hits_id }}</span></li>
+        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS"></span></li>
+        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit"></span></li>
+        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean"></span></li>
+        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std"></span></li>
+      </ul>
+      {% if saved %}
+        <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>
+      {% else %}
+        <button id="save" type="button" class="btn btn-starlight" value="false"><i class="fa fa-bookmark" aria-hidden="true"></i> Save</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class='col-xs-12'>
+    <div class="card card-starlight">
+        <img src="/static/img/stars/Blind15A_04_N1_g_1366_0146_animation.gif" class="center-block" width=120/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight" id="vote-card">
+      <form>
+        <div class="form-group">
+          <label for="select-star">Select Category:</label>
+          <select class='form-control form-control-lg' id="select-star">
+            <option value="QSO">Quasar</option>
+            <option value="CEP">Cepheid</option>
+            <option value="CV">Cataclysmic Variable</option>
+            <option value="NV">Non-variable</option>
+            <option value="RRLYR">RR Lyrae</option>
+            <option value="EB">Eclipsing Binary</option>
+            <option value="SNe">Supernovae</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-starlight pull-right" id="vote" ><i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>
+        <h1 id="point" hidden></h1>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/plotly-latest.min.js' %}"></script>
+<script src="{% static 'js/plot-function.js' %}"></script>
+<script src="{% static 'js/hits-detail.js' %}"></script>
+{% endblock %}

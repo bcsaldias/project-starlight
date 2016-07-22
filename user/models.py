@@ -21,7 +21,7 @@ class Expert(models.Model):
 
     def update_level(self, point):
         self.points += point
-
+        self.level = level(self.points)
 
 
 class Activities(models.Model):

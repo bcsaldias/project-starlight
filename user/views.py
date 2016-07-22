@@ -51,3 +51,6 @@ def votes(request, username):
 
 def activities(request, username):
     pass
+
+def saved(request, username):
+    pass

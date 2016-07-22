@@ -1,0 +1,112 @@
+{% extends "base2.html" %}
+{% load staticfiles %}
+
+{% block title %}
+{{ block.super }}
+HiTS
+{% endblock %}
+
+{% block main-content %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h2>HiTS : High Cadence Transient Survey</h2>
+      <p>
+        {% lorem %}
+        <a href="{% url 'hits_learn' %}" class="text-starlight-purple">Learn more</a>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <nav class="nav-pagination-starlight center-block">
+        <ul class="pagination pagination-sm pagination-starlight">
+          {% if prev %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'hits_list' %}?page=1" aria-label="Previous">
+              <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="{% url 'hits_list' %}?page={{ prev }}" aria-label="Previous">
+              <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+            </a>
+          </li>
+          {% endif %}
+          {% for pg in pages %}
+            {% if page == pg %}
+            <li class="page-item active">
+            {% else %}
+            <li class="page-item">
+            {% endif %}
+              <a href="{% url 'hits_list' %}?page={{ pg }}" class="page-link">{{ pg }}</a>
+            </li>
+          {% endfor %}
+          {% if next %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'hits_list' %}?page={{ next }}" aria-label="Next">
+              <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="{% url 'hits_list' %}?page={{ max_page }}" aria-label="Next">
+              <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      <table class="table table-sm table-hover table-starlight">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>PeriodLS</td>
+            <td>Avg. Mag.</td>
+            <td>Label</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for hits in hits_list %}
+            <tr>
+              <td>
+                <a href="{% url 'hits_detail' hits.hits_id %}">{{ hits.hits_id }}</a>
+                <span id="saved">
+                  {% if hits.saved %}
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  {% endif %}
+                </span>
+              </td>
+              <td>{{ hits.periodLS|floatformat:3 }}</td>
+              <td>{{ hits.mag_mean|floatformat:3 }}</td>
+              {% if hits.your_label %}
+              <td>{{ hits.your_label }}</td>
+              {% else %}
+              <td> - </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block right-side %}
+<div class="card card-starlight">
+  <h3 class="text-xs-center">% Complete</h3>
+  <div class="knob-progress">
+      <input type="text" value={{ user.progress_hits.percent_complete|floatformat:0 }} id="progress"/>
+  </div>
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/jquery.knob.min.js' %}"></script>
+<script src="{% static 'js/hits-list.js' %}"></script>
+{% endblock %}

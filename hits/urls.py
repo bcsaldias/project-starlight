@@ -6,5 +6,8 @@ from . import views
 app_name = 'hits'
 urlpatterns = [
     url(r'^$', views.hits_list, name="list"),
-    url(r'(?P<hits_id>[0-9\.]+)/$', views.hits_detail, name="detail"),
+    url(r'learn/$', views.learn, name="learn"),
+    url(r'(?P<hits_id>[\w]+)/$', views.hits_detail, name="detail"),
+    url(r'(?P<hits_id>[\w]+)/data$', views.hits_data, name="data"),
+    url(r'(?P<hits_id>[\w]+)/save$', views.hits_save, name="save"),
 ]
