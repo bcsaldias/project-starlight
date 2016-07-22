@@ -1,11 +1,148 @@
-{% extends 'base.html' %}
+{% extends "base2.html" %}
+{% load staticfiles %}
+{% load custom_tags %}
 
 {% block title %}
 {{ block.super }}
-{{ user.username }}
+Profile: {{ user.username }}
 {% endblock %}
 
-{% block content %}
-<h1>User Profile:</h1>
-<h2>{{ user.username }}</h2>
+{% block main-content %}
+<div class="row">
+  <div class="col-xs-6">
+    <div class="card card-starlight">
+      <img src="{{ user.email|gravatar_url:250 }}" class="img-rounded center-block" width=250 height=250 />
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="card card-starlight">
+      <div class="row">
+        <div class="col-xs-12">
+          <h3 id="username" data-value="{{ user.username }}">{{ user.username }}</h3>
+          <p>Location: {{ user.country }}</p>
+          <p>DoB: {{ user.dob }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          {{ user.level|badge }}
+          <div id="progress-points">
+            <span>Points: {{ user.points }}</span>
+            <span class="pull-xs-right">Next: {{ 625 }}</span>
+            <progress class="progress progress-starlight" value="{{ user.points }}" max="{{ 625 }}"></progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h2>Projects</h2>
+      <div id="progress-hits">
+        <h4 class="text-starlight-muted">HiTS<small  class="text-starlight-purple">
+          {{ user.progress_hits.percent_complete|floatformat:2 }}% Complete
+        </small>
+        </h4>
+        <progress class="progress progress-starlight" value="{{ user.progress_hits.num_voted }}" max="{{ user.progress_hits.max }}"></progress>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h2>Activities</h2>
+      <div>
+        Activities Plot
+
+      </div>
+      <div>
+        <nav class="nav-pagination-starlight">
+          <ul class="pagination pagination-sm pagination-starlight">
+
+              <!-- <li class="page-item">
+                <a class="page-link" href="#"><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+                </a>
+              </li> -->
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">4</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">5</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+                </a>
+              </li>
+
+          </ul>
+        </nav>
+        <table class="table table-sm table-hover table-starlight">
+          <thead>
+            <tr>
+              <td>Timestamp</td>
+              <td>Project</td>
+              <td>ID</td>
+              <td>Label</td>
+              <td>Point</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for activity in user.activities %}
+            <tr>
+              <td>{{ activity.timestamp }}</td>
+              <td><a href="/{{ activity.datatype|lower }}/?page=1">{{ activity.datatype }}</a></td>
+              <td><a href="{% url activity.datatype|lower|add:'_detail' activity.data_id %}" >{{ activity.data_id }}</a></td>
+              <td>{{ activity.label }}</td>
+              <td>{{ activity.point }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block right-side %}
+<div class="card card-starlight">
+  <ul class="list-unstyled" id="edit-profile-menu">
+    <li class="edit-profile-header">
+      <h6 class="edit-profile-header-text">Edit</h6>
+    </li>
+    <hr class="edit-profile-break" />
+    <li class="edit-profile-item"><a href="{% url 'edit-profile' user.username %}">Account</a></li>
+    <li class="edit-profile-item"><a href="#">Password</a></li>
+    <li class="edit-profile-item"><a href="#">Profile Pic</a></li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/jquery.knob.min.js' %}"></script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

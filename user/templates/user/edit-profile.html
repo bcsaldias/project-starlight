@@ -1,0 +1,68 @@
+{% extends "base2.html" %}
+{% load staticfiles %}
+{% load custom_tags %}
+
+{% block title %}
+{{ block.super }}
+Edit Profile: {{ user.username }}
+{% endblock %}
+
+{% block main-content %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Edit Profile</h3>
+      <form>
+        <fieldset class="form-group">
+          <label for="update-email">Email</label>
+          <input type="text" id="update-email" class="form-control" placeholder="{{ user.email }}" />
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="dob">Date of Birth</label>
+          <div class="row">
+            <div class="col-xs-3">
+              <select class="form-control form-control-lg">
+                <option selected>Year</option>
+                {% for i in 100|get_range %}
+                  <option value="{{ 1907|add:i }}">
+                    {{ 1907|add:i }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-xs-3">
+              <select class="form-control form-control-lg">
+                <option selected>Month</option>
+                {% for i in 12|get_range %}
+                  <option value="{{ 1|add:i }}">
+                    {{ 1|add:i }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-xs-3">
+              <select class="form-control form-control-lg">
+                <option selected>Day</option>
+                {% for i in 31|get_range %}
+                  <option value="{{ 1|add:i }}">
+                    {{ 1|add:i }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="country">Country</label>
+          <select class="form-control form-control-lg" id="country">
+            {% for country in countries %}
+              <option value="{{ country.code }}">{{ country.name }}</option>
+            {% endfor %}
+          </select>
+        </fieldset>
+        <button type="submit" class="btn btn-starlight btn-lg">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+@import '../config/main'
+
+html
+  position: relative
+  height: 100%
+  width: 100%
+
+body
+  background: url("/static/img/background/stars_bg.gif")
+  background-color: $black
+  color: $white
+  height: 100%
+  width: 100%
+  margin-bottom: 60px
+  & > .container
+    padding: 10px 15px 60px 15px
+  a
+    color: $white
+    &:hover, &:focus
+      color: $yellow
+      text-decoration: none
+
+@import "nav"
+@import "footer"
+@import "sidebar-menu"
+@import "index"
+@import "auth"
+@import "profile"
+@import "hits-detail"
+@import "button"
+@import "card"
+@import "pagination"
+@import "progress"
+@import "table"
+@import "knob"
+@import "utilities"

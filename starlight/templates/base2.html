@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main id="{{ title }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-2">
+        {% include "components/_sidebar.html" %}
+      </div>
+      <div class="col-xs-7">
+        {% block main-content %}
+        {% endblock %}
+      </div>
+      <div class="col-xs-3">
+        {% block right-side %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

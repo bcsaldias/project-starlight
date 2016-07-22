@@ -1,0 +1,16 @@
+@import '../config/main'
+
+.pagination.pagination-starlight
+  background-color: transparent
+  .page-item .page-link
+    background-color: rgba(0,0,0,0)
+    border-color: $purple
+    color: $white
+    &:hover, &:focus
+      background-color: $yellow
+  .page-item.active .page-link
+    background-color: $purple
+    border-color: $purple
+  .page-item.disabled .page-link
+    &:hover, &:focus
+      background-color: rgba(0,0,0,0)

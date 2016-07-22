@@ -1,10 +1,88 @@
-{% extends 'base.html' %}
+{% extends "base2.html" %}
+{% load custom_tags %}
 
 {% block title %}
 {{ block.super }}
-User Ranking
+{% if period == 'A' %}
+Ranking: All Time
+{% elif period == 'M' %}
+Ranking: Monthly
+{% elif period == 'W' %}
+Ranking: Weekly
+{% elif period == 'D' %}
+Ranking: Daily
+{% endif %}
 {% endblock %}
 
-{% block content %}
-<h1>Ranking Page</h1>
+{% block main-content %}
+<div class="card card-starlight">
+  <div class="row">
+    <div class="col-xs-12">
+      {% if period == 'A' %}
+        <h2 class="ranking-header-text">All Time</h2>
+      {% elif period == 'M' %}
+        <h2 class="ranking-header-text">Monthly</h2>
+      {% elif period == 'W' %}
+        <h2 class="ranking-header-text">Weekly</h2>
+      {% elif period == 'D' %}
+        <h2 class="ranking-header-text">Daily</h2>
+      {% endif %}
+      <nav class="center-block">
+        <ul class="pagination pagination-sm pagination-starlight">
+          {% if page == '1' %}
+          <li class="page-item disabled">
+          {% else %}
+          <li class="page-item">
+          {% endif %}
+            <a class="page-link" href="?period={{ period }}&page={{ page|add:'-1' }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only"></span>
+            </a>
+          </li>
+          {% for pg in '12345' %}
+            {% if pg == page %}
+              <li class="page-item active">
+                <a class="page-link" href="?period={{ period }}&page={{ page|add:pg }}">{{ page|add:pg }}</a>
+              </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?period={{ period }}&page={{ page|add:pg }}">{{ page|add:pg }}</a>
+            </li>
+            {% endif %}
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="?period={{ period }}&page={{ page|add:'1' }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Level</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in ranking %}
+          <tr>
+            <td>{{ forloop.counter|paginate:page }}</td>
+            <td><a href="{% url 'profile' user.username %}">{{ user.username }}</a></td>
+            <td>{{ user.level }}</td>
+            <td>{{ user.points }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

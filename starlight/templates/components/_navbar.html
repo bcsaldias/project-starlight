@@ -1,0 +1,36 @@
+{% load custom_tags %}
+<nav class="navbar navbar-fixed-top bg-faded navbar-starlight">
+  <div class="container">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="CollapsingNavbar"></button>
+    <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
+      <a class="navbar-brand" href="{% url 'main:index' %}">Project Starlight</a>
+      <ul class="nav navbar-nav pull-xs-right">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <div id="nav-level-badge">
+                {{ user.level|badge:40 }}
+            </div>
+          </li>
+          <li class="nav-item">
+            <div id="nav-progress-points">
+                <span class="text-starlight-purple" >{{ user.points }}</span>
+                <progress class="progress progress-starlight" value="{{ user.points }}" max="{{ 625 }}"></progress>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:logout' %}">
+              Logout <i class="fa fa-sign-out fa-lg"></i>
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:register' %}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

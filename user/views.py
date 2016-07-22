@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 
@@ -20,6 +20,10 @@ def ranking(request):
     return render(request, 'user/ranking.html')
 
 
+def ranking_data(request):
+    pass
+
+
 def profile(request, username):
     context = {
         'user': {
@@ -28,16 +32,6 @@ def profile(request, username):
     }
     return render(request, 'user/profile.html', context)
 
-
-def dashboard(request, username):
-    context = {
-        'user': {
-            'username': username
-        }
-    }
-    return render(request, 'user/dashboard.html', context)
-
-
 def edit_profile(request, username):
     context = {
         'user': {
@@ -45,3 +39,15 @@ def edit_profile(request, username):
         }
     }
     return render(request, 'user/editprofile.html', context)
+
+
+def update_password(request, username):
+    pass
+
+
+def votes(request, username):
+    pass
+
+
+def activities(request, username):
+    pass
