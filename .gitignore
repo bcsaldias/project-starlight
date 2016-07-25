@@ -2,5 +2,4 @@ venv
 *.pyc
 staticfiles
 *.ipynb
-*.json
 *.sqlite3
