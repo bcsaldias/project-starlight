@@ -1,27 +1,37 @@
 import json, math
 
-from django.shortcuts import render
+from django.core import serializers
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
+from .models import Hits, HitsDetail
+from user.models import Expert
+
 
 def learn(request):
     pass
 
-
+@login_required(login_url='/user/login/')
 def hits_list(request):
-    with open('hits/pseudouser.json', 'r') as f_data:
-        pseudouser = json.load(f_data)
-        pseudouser = pseudouser[0]
-    pseudouser['is_authenticated'] = True
-    pseudouser['progress_hits'] = {
-        'max': 2674,
-        'num_voted': len(pseudouser['votehits']),
-        'percent_complete': len(pseudouser['votehits'])/2674 * 100
-    }
-    with open('hits/hits_list.json', 'r') as hits_list:
-        hits_list = json.load(hits_list)
+    user = request.user
+    expert = Expert.objects.get(user=request.user)
+    num_voted = expert.votehits_set.count()
 
-    page = int(request.GET['page'])
+    hits_list = Hits.objects.all()
+    max_count = len(hits_list)
+    progress_hits = {
+        'max': max_count,
+        'num_voted': num_voted,
+        'percent_complete': num_voted / max_count * 100
+    }
+
+    try:
+        page = int(request.GET['page'])
+    except:
+        page = 1
+
     per_page = 20
     start = (page - 1) * per_page
     end = start+per_page
@@ -45,12 +55,15 @@ def hits_list(request):
         'prev': prev_pg,
         'pages': pages,
         'max_page': max_page,
-        'user': pseudouser,
+        'user': user,
+        'progress_hits': progress_hits,
         'title': 'hits-list'
     }
     return render(request, 'hits/hits-list.html', context)
 
+
 @csrf_exempt
+@login_required(login_url='/user/login/')
 def hits_detail(request, hits_id):
     if request.method == "POST":
         json_response = {
@@ -58,38 +71,29 @@ def hits_detail(request, hits_id):
             'next': 'Blind15A_04_N16_0183_3344'
         }
         return JsonResponse(json_response)
-    with open('hits/pseudouser.json', 'r') as f_data:
-        pseudouser = json.load(f_data)
-        pseudouser = pseudouser[0]
-    pseudouser['is_authenticated'] = True
-    with open('hits/hits_list.json', 'r') as json_data:
-        hits_list = json.load(json_data)
+
+    user = request.user
+    expert = Expert.objects.get(user=user)
+
     context = {
         'hits_id': hits_id,
-        'saved': True,
-        'user': pseudouser,
+        'user': user,
         'title': 'hits-detail'
     }
     return render(request, 'hits/hits-detail.html', context)
 
 
+@login_required(login_url='/user/login/')
 def hits_data(request, hits_id):
-    if hits_id == "Blind15A_04_N16_0183_3344":
-        json_file = 'rr_lightcurve_list.json'
-    else:
-        json_file = 'nv_lightcurve_list.json'
+    hits = get_object_or_404(Hits, pk=hits_id)
+    hits_lightcurve = hits.hitsdetail_set.all()
 
-    with open('hits/'+json_file, 'r') as json_file:
-        lightcurve_data = json.load(json_file)
-    with open('hits/hits_list.json', 'r') as json_file:
-        hits_list = json.load(json_file)
-    hits_profile = None
-    for hits in hits_list:
-        if hits['hits_id'] == hits_id:
-            hits_profile = hits
+    hits = serializers.serialize('json', [hits,])
+    hits_lightcurve = serializers.serialize('json', hits_lightcurve, fields=('mjd','mag','err'))
+
     json_response = {
-        'profile': hits_profile,
-        'lightcurve': lightcurve_data
+        'profile': hits,
+        'lightcurve': hits_lightcurve
     }
     return JsonResponse(json_response)
 

@@ -4,29 +4,30 @@ $(function() {
   hits_id = $('#hits_id').attr('data-value');
   url = '/hits/' + hits_id + '/data';
   $.getJSON(url, function(result) {
-    var datapoint, err, i, lcdata, len, lightcurve, mag, mag_mean, mag_std, mjd, periodLS, period_fit;
+    var datapoint, err, i, lcdata, len, lightcurve, mag, mag_mean, mag_std, mjd, periodLS, period_fit, profile;
     $("#vote").removeAttr("hidden");
-    periodLS = result['profile']['periodLS'];
+    profile = JSON.parse(result['profile'])[0];
+    lightcurve = JSON.parse(result['lightcurve']);
+    periodLS = profile['fields']['periodLS'];
     $("#periodLS").attr('data-value', periodLS);
     $("#periodLS").text(periodLS.toFixed(5));
-    period_fit = result['profile']['period_fit'];
+    period_fit = profile['fields']['period_fit'];
     $("#period_fit").attr('data-value', period_fit);
     $("#period_fit").text(period_fit.toFixed(5));
-    mag_mean = result['profile']['mag_mean'];
+    mag_mean = profile['fields']['mag_mean'];
     $("#mag_mean").attr('data-value', mag_mean);
     $("#mag_mean").text(mag_mean.toFixed(5));
-    mag_std = result['profile']['mag_std'];
+    mag_std = profile['fields']['mag_std'];
     $("#mag_std").attr('data-value', mag_std);
     $("#mag_std").text(mag_std.toFixed(5));
-    lightcurve = result['lightcurve'];
     mjd = Array();
     mag = Array();
     err = Array();
     for (i = 0, len = lightcurve.length; i < len; i++) {
       datapoint = lightcurve[i];
-      mjd.push(datapoint['mjd']);
-      mag.push(datapoint['mag']);
-      err.push(datapoint['err']);
+      mjd.push(datapoint['fields']['mjd']);
+      mag.push(datapoint['fields']['mag']);
+      err.push(datapoint['fields']['err']);
     }
     lcdata = {
       mjd: mjd,
@@ -35,18 +36,6 @@ $(function() {
     };
     mainPlot(lcdata);
     return foldPlot(lcdata, periodLS);
-  });
-  $("#save").click(function() {
-    url = "/hits/" + hits_id + "/save";
-    return $.get(url, function(result) {
-      if ($("#save").attr('value') === "true") {
-        $("#save").attr("value", "false");
-        return $("#save").html('<i class="fa fa-bookmark" aria-hidden="true"></i> Save');
-      } else {
-        $("#save").attr("value", "true");
-        return $("#save").html('<i class="fa fa-check" aria-hidden="true"></i> Saved');
-      }
-    });
   });
   return $("#vote").click(function(e) {
     var label;

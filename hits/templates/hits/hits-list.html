@@ -95,10 +95,22 @@ HiTS
 {% endblock %}
 
 {% block right-side %}
-<div class="card card-starlight">
-  <h3 class="text-xs-center">% Complete</h3>
-  <div class="knob-progress">
-      <input type="text" value={{ user.progress_hits.percent_complete|floatformat:0 }} id="progress"/>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3 class="text-xs-center">% Complete</h3>
+      <div class="knob-progress">
+          <input type="text" value={{ progress_hits.percent_complete|floatformat:0 }} id="progress"/>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight" id="start-label">
+        <button type="button" class="btn btn-starlight btn-lg center-block">Start Labeling <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

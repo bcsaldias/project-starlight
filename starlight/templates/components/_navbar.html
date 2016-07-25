@@ -5,16 +5,16 @@
     <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
       <a class="navbar-brand" href="{% url 'main:index' %}">Project Starlight</a>
       <ul class="nav navbar-nav pull-xs-right">
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
           <li class="nav-item">
             <div id="nav-level-badge">
-                {{ user.level|badge:40 }}
+                {{ request.user.expert.level|badge:40 }}
             </div>
           </li>
           <li class="nav-item">
             <div id="nav-progress-points">
-                <span class="text-starlight-purple" >{{ user.points }}</span>
-                <progress class="progress progress-starlight" value="{{ user.points }}" max="{{ 625 }}"></progress>
+                <span class="text-starlight-purple" >{{ request.user.expert.points }}</span>
+                <progress class="progress progress-starlight" value="{{ request.user.expert.points }}" max="{{ request.user.expert.level|add:1|n_power:5  }}"></progress>
             </div>
           </li>
           <li class="nav-item">

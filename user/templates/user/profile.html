@@ -23,11 +23,11 @@ Profile: {{ user.username }}
       </div>
       <div class="row">
         <div class="col-xs-12">
-          {{ user.level|badge:150 }}
+          {{ user.expert.level|badge:150 }}
           <div id="progress-points">
-            <span>Points: {{ user.points }}</span>
-            <span class="pull-xs-right">Next: {{ 625 }}</span>
-            <progress class="progress progress-starlight" value="{{ user.points }}" max="{{ 625 }}"></progress>
+            <span>Points: {{ user.expert.points }}</span>
+            <span class="pull-xs-right">Next: {{ user.expert.level|add:1|n_power:5 }}</span>
+            <progress class="progress progress-starlight" value="{{ user.expert.points }}" max="{{ user.expert.level|add:1|n_power:5 }}"></progress>
           </div>
         </div>
       </div>
@@ -40,10 +40,10 @@ Profile: {{ user.username }}
       <h2>Projects</h2>
       <div id="progress-hits">
         <h4 class="text-starlight-muted">HiTS<small  class="text-starlight-purple">
-          {{ user.progress_hits.percent_complete|floatformat:2 }}% Complete
+          {{ progress_hits.percent_complete|floatformat:2 }}% Complete
         </small>
         </h4>
-        <progress class="progress progress-starlight" value="{{ user.progress_hits.num_voted }}" max="{{ user.progress_hits.max }}"></progress>
+        <progress class="progress progress-starlight" value="{{ progress_hits.num_voted }}" max="{{ progress_hits.max }}"></progress>
       </div>
     </div>
   </div>

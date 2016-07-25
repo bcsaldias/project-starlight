@@ -1,3 +1,5 @@
+import math
+
 import hashlib, urllib
 from django import template
 from django.utils.safestring import mark_safe
@@ -34,3 +36,8 @@ def gravatar_url(email, size=40):
 def gravatar(email, size=40):
     url = gravatar_url(email, size)
     return mark_safe('<img src="%s" height="%d" width="%d">' % (url, size, size))
+
+
+@register.filter
+def n_power(n, exp):
+    return exp ** n

@@ -1,21 +1,22 @@
 import json
 
-from django.contrib.auth.forms import (AuthenticationForm)
-
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from .forms import UserCreateForm
 from .models import Expert
 
+from hits.models import Hits
 
 
 def login_user(request):
     if request.user.is_authenticated():
-        return redirect('main:index')
+        path = reverse('user:profile', kwargs={'username': request.user.username})
+        return redirect(path)
 
     if request.method == "POST":
         username = request.POST['username']
@@ -23,45 +24,43 @@ def login_user(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect('main:index')
+            redirect_path = reverse('user:profile', kwargs={'username': user.username})
+            return redirect(redirect_path)
 
-    login_form = AuthenticationForm()
-    context = {
-        'login_form': login_form
-    }
-    return render(request, 'user/login.html', context)
+    return render(request, 'user/login.html')
 
 
 def register(request):
-
     if request.user.is_authenticated():
-        return redirect('main:index')
+        path = reverse('user:profile', kwargs={'username': request.user.username})
+        return redirect(path)
 
     if request.method == "POST":
-        user_form = UserCreateForm(data=request.POST)
+
+        user_form =  UserCreateForm(data=request.POST)
+
         if user_form.is_valid():
             user = user_form.save()
-            # user.set_password(user.password)
+            password = request.POST['password1']
+
             Expert.objects.create(user=user)
-            user = authenticate(username=user.username, password=user.password)
-            if user:
-                print("here!")
+
+            user = authenticate(username=user.username, password=password)
+
+            if user.is_authenticated():
                 login(request, user)
 
-            path = reverse('user:profile', kwargs={'username': user.username})
-            return redirect(path)
+            redirect_path = reverse('user:profile', kwargs={'username': user.username})
+            return redirect(redirect_path)
 
-    registeration_form = UserCreateForm()
-    context = {
-        'registeration_form': registeration_form,
-    }
-    return render(request, 'user/register.html', context)
+
+    return render(request, 'user/register.html')
 
 
 @login_required(login_url='/user/login/')
 def logout_user(request):
     logout(request)
-    return redirect('main:index', permanent=True)
+    return redirect('main:index')
 
 
 @login_required(login_url='/user/login/')
@@ -96,28 +95,31 @@ def ranking(request):
 
 @login_required(login_url='/user/login/')
 def profile(request, username):
-    with open('user/pseudouser.json', 'r') as f_data:
-        pseudouser = json.load(f_data)
-        pseudouser = pseudouser[0]
-    pseudouser['is_authenticated'] = True
-    pseudouser['progress_hits'] = {
-        'max': 2674,
-        'num_voted': len(pseudouser['votehits']),
-        'percent_complete': len(pseudouser['votehits'])/2674 * 100
+    user = get_object_or_404(User, username=username)
+    expert = Expert.objects.get(user=user)
+
+    num_voted = expert.votehits_set.count()
+    max_count = Hits.objects.count()
+    progress_hits = {
+        'max': max_count,
+        'num_voted': num_voted,
+        'percent_complete': num_voted / max_count * 100
     }
-    # pseudouser['email'] = 'seongjung84@hotmail.com'
-    pseudouser['activities'] = pseudouser['activities'][:25]
     context = {
-        'user': pseudouser,
-        'title': 'profile'
+        'user': user,
+        'progress_hits': progress_hits,
+        'title': 'profile',
     }
     return render(request, 'user/profile.html', context)
 
 
-def votes(request, username):
-    pass
 
 
+
+# def votes(request, username):
+#     pass
+#
+#
 # def edit_profile(request, username):
 #     pass
 #

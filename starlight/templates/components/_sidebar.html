@@ -6,7 +6,7 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="{% url 'user:profile' user.username %}">
+      <a href="{% url 'user:profile' request.user.username %}">
         <i class="fa fa-tasks" aria-hidden="true"></i>
         Profile
       </a>
