@@ -2,7 +2,7 @@
   min-height: 100%;
   width: 100%; }
 
-#login, #register, #profile, #ranking, #hits-list, #hits-detail, #edit-profile {
+#login, #register, #profile, #ranking, #hits-list, #hits-detail {
   min-height: 100%;
   padding-top: 70px;
   width: 100%; }
@@ -121,7 +121,7 @@ section {
   background-image: url("/static/img/background/hubble1.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-image: 100%; }
+  background-size: 100%; }
   #register .form-signup {
     max-width: 450px;
     padding: 15px; }
