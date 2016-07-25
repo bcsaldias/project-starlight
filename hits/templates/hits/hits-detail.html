@@ -34,25 +34,26 @@ HiTS: {{ hits_id }}
         <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean"></span></li>
         <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std"></span></li>
       </ul>
-      {% if saved %}
+      <!-- {% if saved %}
         <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>
       {% else %}
         <button id="save" type="button" class="btn btn-starlight" value="false"><i class="fa fa-bookmark" aria-hidden="true"></i> Save</button>
-      {% endif %}
+      {% endif %} -->
     </div>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class='col-xs-12'>
     <div class="card card-starlight">
         <img src="/static/img/stars/Blind15A_04_N1_g_1366_0146_animation.gif" class="center-block" width=120/>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight" id="vote-card">
       <form>
+          {% csrf_token %}
         <div class="form-group">
           <label for="select-star">Select Category:</label>
           <select class='form-control form-control-lg' id="select-star">
@@ -65,7 +66,7 @@ HiTS: {{ hits_id }}
             <option value="SNe">Supernovae</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-starlight pull-right" id="vote" ><i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-starlight pull-right" id="vote" ><i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>
         <h1 id="point" hidden></h1>
       </form>
     </div>

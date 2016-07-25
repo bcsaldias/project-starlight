@@ -143,6 +143,20 @@ section {
     padding: 15px;
     background-color: rgba(10, 10, 10, 0.7); }
 
+#profile-pic, #profile-desc {
+  min-height: 260px; }
+
+#profile-desc #username {
+  margin-bottom: 10px; }
+#profile-desc .level-badge {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+#profile-desc #progress-points {
+  margin-top: 10px; }
+
 #progress-hits h4 {
   line-height: 1.5;
   padding-top: 15px; }

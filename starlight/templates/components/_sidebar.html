@@ -6,7 +6,7 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="{% url 'profile' user.username %}">
+      <a href="{% url 'user:profile' user.username %}">
         <i class="fa fa-tasks" aria-hidden="true"></i>
         Profile
       </a>
@@ -16,7 +16,7 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="{% url 'hits_list' %}?page=1">
+      <a href="{% url 'hits:list' %}?page=1">
         <i class="fa fa-star" aria-hidden="true"></i>
         HITS
       </a>
@@ -26,27 +26,9 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="{% url 'ranking' %}?page=1&period=A">
+      <a href="{% url 'user:ranking' %}?page=1&period=A">
         <i class="fa fa-sort" aria-hidden="true"></i>
         All Time
-      </a>
-    </li>
-    <li class="sidebar-menu-item">
-      <a href="{% url 'ranking' %}?page=1&period=M">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-        Month
-      </a>
-    </li>
-    <li class="sidebar-menu-item">
-      <a href="{% url 'ranking' %}?page=1&period=W">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-        Week
-      </a>
-    </li>
-    <li class="sidebar-menu-item">
-      <a href="{% url 'ranking' %}?page=1&period=D">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-        Today
       </a>
     </li>
     <li class="sidebar-menu-header">

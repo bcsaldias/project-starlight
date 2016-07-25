@@ -13,7 +13,7 @@ HiTS
       <h2>HiTS : High Cadence Transient Survey</h2>
       <p>
         {% lorem %}
-        <a href="{% url 'hits_learn' %}" class="text-starlight-purple">Learn more</a>
+        <a href="{% url 'hits:learn' %}" class="text-starlight-purple">Learn more</a>
       </p>
     </div>
   </div>
@@ -25,12 +25,12 @@ HiTS
         <ul class="pagination pagination-sm pagination-starlight">
           {% if prev %}
           <li class="page-item">
-            <a class="page-link" href="{% url 'hits_list' %}?page=1" aria-label="Previous">
+            <a class="page-link" href="{% url 'hits:list' %}?page=1" aria-label="Previous">
               <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
             </a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="{% url 'hits_list' %}?page={{ prev }}" aria-label="Previous">
+            <a class="page-link" href="{% url 'hits:list' %}?page={{ prev }}" aria-label="Previous">
               <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
             </a>
           </li>
@@ -41,17 +41,17 @@ HiTS
             {% else %}
             <li class="page-item">
             {% endif %}
-              <a href="{% url 'hits_list' %}?page={{ pg }}" class="page-link">{{ pg }}</a>
+              <a href="{% url 'hits:list' %}?page={{ pg }}" class="page-link">{{ pg }}</a>
             </li>
           {% endfor %}
           {% if next %}
           <li class="page-item">
-            <a class="page-link" href="{% url 'hits_list' %}?page={{ next }}" aria-label="Next">
+            <a class="page-link" href="{% url 'hits:list' %}?page={{ next }}" aria-label="Next">
               <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
             </a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="{% url 'hits_list' %}?page={{ max_page }}" aria-label="Next">
+            <a class="page-link" href="{% url 'hits:list' %}?page={{ max_page }}" aria-label="Next">
               <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
             </a>
           </li>
@@ -71,7 +71,7 @@ HiTS
           {% for hits in hits_list %}
             <tr>
               <td>
-                <a href="{% url 'hits_detail' hits.hits_id %}">{{ hits.hits_id }}</a>
+                <a href="{% url 'hits:detail' hits.hits_id %}">{{ hits.hits_id }}</a>
                 <span id="saved">
                   {% if hits.saved %}
                   <i class="fa fa-bookmark" aria-hidden="true"></i>

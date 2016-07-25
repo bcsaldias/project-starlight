@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'learn/$', views.learn, name="learn"),
     url(r'(?P<hits_id>[\w]+)/$', views.hits_detail, name="detail"),
     url(r'(?P<hits_id>[\w]+)/data$', views.hits_data, name="data"),
-    url(r'(?P<hits_id>[\w]+)/save$', views.hits_save, name="save"),
+    # url(r'(?P<hits_id>[\w]+)/save$', views.hits_save, name="save"),
 ]

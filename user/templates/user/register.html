@@ -10,22 +10,24 @@ Register
   <div class="container">
     <div class="card auth-card center-block">
       <h2>Register</h2>
-      <form class="form-signup center-block" method="post">
+      <form class="form-signup center-block" method="post" id="register_form">
+        {% csrf_token %}
+
         <fieldset class="form-group">
           <label for="inputUsername" class="sr-only">Username </label>
-          <input type="text" class="form-control" id="inputUsername" placeholder="Username" required autofocus>
+          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" required autofocus>
         </fieldset>
         <fieldset class="form-group">
           <label for="inputEmail" class="sr-only">Email Address</label>
-          <input type="text" class="form-control" id="inputEmail" placeholder="Email" required>
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" required>
         </fieldset>
         <fieldset class="form-group">
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+          <input type="password" class="form-control" id="inputPassword" name="password1"  placeholder="Password" required>
         </fieldset>
         <fieldset class="form-group">
           <label for="inputConfirm" class="sr-only">Password Confirm</label>
-          <input type="password" class="form-control" id="inputConfirm" placeholder="Password Confirmation" required>
+          <input type="password" class="form-control" id="inputConfirm" placeholder="Password Confirmation" name="password2" required>
         </fieldset>
         <button class="btn btn-lg btn-starlight btn-block" type="submit">Register</button>
       </form>
