@@ -3,22 +3,14 @@
 
 {% block title %}
 {{ block.super }}
-{% if period == 'A' %}
 Ranking: All Time
-{% elif period == 'M' %}
-Ranking: Monthly
-{% elif period == 'W' %}
-Ranking: Weekly
-{% elif period == 'D' %}
-Ranking: Daily
-{% endif %}
 {% endblock %}
 
 {% block main-content %}
 <div class="card card-starlight">
   <div class="row">
     <div class="col-xs-12">
-      <h2 class="ranking-header-text">All Time</h2>
+      <h2 class="ranking-header-text">Ranking: All Time</h2>
     </div>
   </div>
   <div class="row">
@@ -33,13 +25,13 @@ Ranking: Daily
           </tr>
         </thead>
         <tbody>
-          {% for user in ranking %}
+          {% for expert in ranking %}
           <tr>
-            <td>{{ forloop.counter|paginate:page }}</td>
-            <td><a href="{% url 'user:profile' user.username %}">{{ user.email|gravatar:15 }} {{ user.username }}
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'user:profile' expert.user.username %}">{{ expert.user.email|gravatar:15 }} {{ expert.user.username }}
             </a></td>
-            <td>{{ user.level|badge:30 }}</td>
-            <td>{{ user.points }}</td>
+            <td>{{ expert.level|badge:30 }}</td>
+            <td>{{ expert.points }}</td>
           </tr>
           {% endfor %}
         </tbody>

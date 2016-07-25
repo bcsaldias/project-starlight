@@ -48,15 +48,21 @@ $(function() {
       var new_url, next, point;
       next = result['next'];
       point = result['point'];
-      point = "+" + point;
-      new_url = '/hits/' + next + '/';
-      return $("#point").text(point).removeAttr('hidden').animate({
-        bottom: '150px',
-        opacity: '0.0'
-      }, 750, function() {
+      if (point >= 1) {
+        point = "+" + point;
+        new_url = '/hits/' + next + '/';
+        return $("#point").text(point).removeAttr('hidden').animate({
+          bottom: '150px',
+          opacity: '0.0'
+        }, 750, function() {
+          window.history.pushState({}, hits_id, url);
+          return window.location.replace(new_url);
+        });
+      } else {
+        new_url = '/hits/' + next + '/';
         window.history.pushState({}, hits_id, url);
         return window.location.replace(new_url);
-      });
+      }
     });
   });
 });

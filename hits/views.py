@@ -1,12 +1,13 @@
-import json, math
+import math, random
 
 from django.core import serializers
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
-from .models import Hits, HitsDetail
+from .models import Hits, HitsDetail, VoteHits
 from user.models import Expert
 
 
@@ -19,8 +20,8 @@ def hits_list(request):
     expert = Expert.objects.get(user=request.user)
     num_voted = expert.votehits_set.count()
 
-    hits_list = Hits.objects.all()
-    max_count = len(hits_list)
+    hits_query = Hits.objects.all()
+    max_count = len(hits_query)
     progress_hits = {
         'max': max_count,
         'num_voted': num_voted,
@@ -35,7 +36,7 @@ def hits_list(request):
     per_page = 20
     start = (page - 1) * per_page
     end = start+per_page
-    max_page = math.ceil(len(hits_list) / 20)
+    max_page = math.ceil(max_count / 20)
 
     prev_pg=None
     if page > 1:
@@ -48,8 +49,22 @@ def hits_list(request):
     if page > 4:
         pages = [page+i for i in range(-2,3,1) if 0 < page+i <= max_page]
 
+    hits_list = list()
+    for hits_instance in hits_query[start:end]:
+        hits = dict()
+        hits['hits_id'] = hits_instance.pk
+        hits['periodLS'] = hits_instance.periodLS
+        hits['mag_mean'] = hits_instance.mag_mean
+        try:
+            votehits = hits_instance.votes.get(expert=expert)
+        except:
+            hits['label'] = None
+        else:
+            hits['label'] = votehits.label
+        hits_list.append(hits)
+
     context = {
-        'hits_list': hits_list[start:end],
+        'hits_list': hits_list,
         'page': page,
         'next': next_pg,
         'prev': prev_pg,
@@ -62,14 +77,53 @@ def hits_list(request):
     return render(request, 'hits/hits-list.html', context)
 
 
+def generate_next(expert):
+    voted = set(expert.votehits_set.values_list('hits', flat=True))
+    non_voted = list(Hits.objects.values_list('pk',flat=True))
+    non_voted = [hits_id for hits_id in non_voted if hits_id not in voted]
+
+    next_id = random.choice(non_voted)
+    print(len(non_voted))
+    return next_id
+
+
+@login_required(login_url='/user/login/')
+def hits_random(request):
+    expert = get_object_or_404(Expert, user=request.user)
+
+    next_id = generate_next(expert)
+
+    path = reverse('hits:detail', kwargs={'hits_id': next_id})
+    return redirect(path)
+
+
+
 @csrf_exempt
 @login_required(login_url='/user/login/')
 def hits_detail(request, hits_id):
     if request.method == "POST":
+        label = request.POST['label']
+        hits = Hits.objects.get(pk=hits_id)
+        expert = Expert.objects.get(user=request.user)
+
+        _, created = VoteHits.objects.update_or_create(
+                        expert=expert,
+                        hits=hits,
+                        label=label
+        )
+
+        point = None
+        if created:
+            point = 1
+            expert.update_level(point)
+
+        next_id = generate_next(expert)
+
         json_response = {
-            'point': 1,
-            'next': 'Blind15A_04_N16_0183_3344'
+            'point': point,
+            'next': next_id
         }
+
         return JsonResponse(json_response)
 
     user = request.user

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 def level(points):
-    return int(log(points)/log(5))
+    return max(1,int(log(points)/log(5)))
 
 
 class Expert(models.Model):
@@ -22,6 +22,7 @@ class Expert(models.Model):
     def update_level(self, point):
         self.points += point
         self.level = level(self.points)
+        self.save()
 
 
 class Activities(models.Model):

@@ -72,16 +72,16 @@ HiTS
             <tr>
               <td>
                 <a href="{% url 'hits:detail' hits.hits_id %}">{{ hits.hits_id }}</a>
-                <span id="saved">
+                <!-- <span id="saved">
                   {% if hits.saved %}
                   <i class="fa fa-bookmark" aria-hidden="true"></i>
                   {% endif %}
-                </span>
+                </span> -->
               </td>
               <td>{{ hits.periodLS|floatformat:3 }}</td>
               <td>{{ hits.mag_mean|floatformat:3 }}</td>
-              {% if hits.your_label %}
-              <td>{{ hits.your_label }}</td>
+              {% if hits.label %}
+              <td>{{ hits.label }}</td>
               {% else %}
               <td> - </td>
               {% endif %}
@@ -108,7 +108,7 @@ HiTS
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight" id="start-label">
-        <button type="button" class="btn btn-starlight btn-lg center-block">Start Labeling <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></button>
+        <a type="button" class="btn btn-starlight btn-lg center-block" href="{% url 'hits:random' %}">Start Labeling <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>

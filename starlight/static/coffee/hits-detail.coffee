@@ -48,15 +48,21 @@ $ ->
       $.post(url,{'label': label}, (result)->
           next = result['next']
           point = result['point']
-          point = "+" + point
-          new_url = '/hits/'+next+'/'
-          $("#point").text(point).removeAttr('hidden').animate({
-            bottom: '150px'
-            opacity: '0.0'
-          }, 750, () ->
-              window.history.pushState({}, hits_id, url)
-              window.location.replace(new_url)
-          )
+
+          if point >= 1
+            point = "+" + point
+            new_url = '/hits/'+next+'/'
+            $("#point").text(point).removeAttr('hidden').animate({
+              bottom: '150px'
+              opacity: '0.0'
+            }, 750, () ->
+                window.history.pushState({}, hits_id, url)
+                window.location.replace(new_url)
+            )
+          else
+            new_url = '/hits/'+next+'/'
+            window.history.pushState({}, hits_id, url)
+            window.location.replace(new_url)
         )
 
 

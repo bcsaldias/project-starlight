@@ -8,6 +8,11 @@
         {% if request.user.is_authenticated %}
           <li class="nav-item">
             <div id="nav-level-badge">
+                <a href="{% url 'user:profile' request.user.username %}">{{ request.user.username }}</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div id="nav-level-badge">
                 {{ request.user.expert.level|badge:40 }}
             </div>
           </li>

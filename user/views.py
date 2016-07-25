@@ -65,29 +65,9 @@ def logout_user(request):
 
 @login_required(login_url='/user/login/')
 def ranking(request):
-    with open('user/pseudouser.json', 'r') as f_data:
-        pseudouser = json.load(f_data)
-        pseudouser = pseudouser[0]
-    pseudouser['is_authenticated'] = True
-    period = request.GET['period']
-    page = request.GET['page']
-    user_per_page = 20
-
-    ranking = []
-    if period == 'A':
-        with open('user/pseudousers.json','r') as pseudousers:
-            pseudousers = json.load(pseudousers)
-        for id, user in pseudousers.items():
-            ranking.append(user)
-        ranking = sorted(ranking, key=lambda x: -x['points'])
-    else:
-        pass
-
+    ranking = Expert.objects.order_by('-points')
     context = {
-        'user': pseudouser,
         'title': 'ranking',
-        'period': period,
-        'page': page,
         'ranking': ranking,
     }
     return render(request, 'user/ranking.html', context)

@@ -33,7 +33,7 @@ class VoteHits(models.Model):
         ('SNe', 'Supernovae'),
     )
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
-    hits = models.ForeignKey(Hits, on_delete=models.CASCADE)
+    hits = models.ForeignKey(Hits, on_delete=models.CASCADE, related_name="votes")
     label = models.CharField(max_length=8, null=True, choices=HITS_LABELS)
 
     class Meta:
