@@ -26,7 +26,7 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="{% url 'user:ranking' %}?page=1&period=A">
+      <a href="{% url 'user:ranking' %}">
         <i class="fa fa-sort" aria-hidden="true"></i>
         All Time
       </a>
@@ -36,9 +36,15 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
-      <a href="/about/">
+      <a href="{% url 'main:about' %}">
         <i class="fa fa-book" aria-hidden="true"></i>
         About
+      </a>
+    </li>
+    <li class="sidebar-menu-item">
+      <a href="{% url 'main:learn' %}">
+        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        Learn
       </a>
     </li>
   </ul>

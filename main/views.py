@@ -14,8 +14,14 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'main/about.html')
+    context = {
+        'title': 'about'
+    }
+    return render(request, 'main/about.html', context)
 
 
 def learn(request):
-    return render(request, 'main/learn.html')
+    context = {
+        'title': 'learn'
+    }
+    return render(request, 'main/learn.html', context)

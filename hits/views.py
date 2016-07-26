@@ -11,8 +11,9 @@ from .models import Hits, HitsDetail, VoteHits
 from user.models import Expert
 
 
-def learn(request):
-    pass
+def hits_learn(request):
+    return render(request, 'hits/hits-learn.html')
+
 
 @login_required(login_url='/user/login/')
 def hits_list(request):
