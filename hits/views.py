@@ -11,10 +11,6 @@ from .models import Hits, HitsDetail, VoteHits
 from user.models import Expert
 
 
-def hits_learn(request):
-    return render(request, 'hits/hits-learn.html')
-
-
 @login_required(login_url='/user/login/')
 def hits_list(request):
     user = request.user
@@ -84,7 +80,7 @@ def generate_next(expert):
     non_voted = [hits_id for hits_id in non_voted if hits_id not in voted]
 
     next_id = random.choice(non_voted)
-    print(len(non_voted))
+
     return next_id
 
 
@@ -107,11 +103,15 @@ def hits_detail(request, hits_id):
         hits = Hits.objects.get(pk=hits_id)
         expert = Expert.objects.get(user=request.user)
 
-        _, created = VoteHits.objects.update_or_create(
-                        expert=expert,
-                        hits=hits,
-                        label=label
-        )
+        try:
+            votehits = VoteHits.objects.get(expert=expert, hits=hits)
+            created = False
+        except VoteHits.DoesNotExist:
+            votehits = VoteHits.objects.create(expert=expert,
+            hits=hits)
+            created = True
+        votehits.label = label
+        votehits.save()
 
         point = None
         if created:
@@ -124,15 +124,22 @@ def hits_detail(request, hits_id):
             'point': point,
             'next': next_id
         }
-
         return JsonResponse(json_response)
 
     user = request.user
     expert = Expert.objects.get(user=user)
-
+    hits = get_object_or_404(Hits, hits_id=hits_id)
+    try:
+        votehits = hits.votes.get(expert=expert)
+    except VoteHits.DoesNotExist:
+        label = None
+    else:
+        label = votehits.label
     context = {
-        'hits_id': hits_id,
+        'hits': hits,
         'user': user,
+        'choices': VoteHits.HITS_LABELS,
+        'label': label,
         'title': 'hits-detail'
     }
     return render(request, 'hits/hits-detail.html', context)
@@ -153,5 +160,8 @@ def hits_data(request, hits_id):
     return JsonResponse(json_response)
 
 
-# def hits_save(request, hits_id):
-#     pass
+def hits_learn(request):
+    context = {
+        'title': 'hits-learn',
+    }
+    return render(request, 'hits/hits-learn.html', context)

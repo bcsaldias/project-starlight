@@ -28,11 +28,11 @@ HiTS: {{ hits_id }}
   <div class="col-xs-12">
     <div class="card card-starlight" id="hits-profile">
       <ul class="list-unstyled">
-        <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits_id }}">{{ hits_id }}</span></li>
-        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS"></span></li>
-        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit"></span></li>
-        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean"></span></li>
-        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std"></span></li>
+        <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits.hits_id }}">{{ hits.hits_id }}</span></li>
+        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS">{{ hits.periodLS }}</span></li>
+        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit">{{ hits.period_fit }}</span></li>
+        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean">{{ hits.mag_mean }}</span></li>
+        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std">{{ hits.mag_std }}</span></li>
       </ul>
       <!-- {% if saved %}
         <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>
@@ -57,13 +57,13 @@ HiTS: {{ hits_id }}
         <div class="form-group">
           <label for="select-star">Select Category:</label>
           <select class='form-control form-control-lg' id="select-star">
-            <option value="QSO">Quasar</option>
-            <option value="CEP">Cepheid</option>
-            <option value="CV">Cataclysmic Variable</option>
-            <option value="NV">Non-variable</option>
-            <option value="RRLYR">RR Lyrae</option>
-            <option value="EB">Eclipsing Binary</option>
-            <option value="SNe">Supernovae</option>
+          {% for value, text in choices %}
+            {% if label == value %}
+              <option value="{{ value }}" selected>{{ text }}</option>
+            {% else %}
+              <option value="{{ value }}">{{ text }}</option>
+            {% endif %}
+          {% endfor %}
           </select>
         </div>
         <button type="button" class="btn btn-starlight pull-right" id="vote" >Submit <i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>

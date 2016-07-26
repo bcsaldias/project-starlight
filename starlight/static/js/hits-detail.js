@@ -4,22 +4,11 @@ $(function() {
   hits_id = $('#hits_id').attr('data-value');
   url = '/hits/' + hits_id + '/data';
   $.getJSON(url, function(result) {
-    var datapoint, err, i, lcdata, len, lightcurve, mag, mag_mean, mag_std, mjd, periodLS, period_fit, profile;
+    var datapoint, err, i, lcdata, len, lightcurve, mag, mjd, periodLS, profile;
     $("#vote").removeAttr("hidden");
     profile = JSON.parse(result['profile'])[0];
     lightcurve = JSON.parse(result['lightcurve']);
     periodLS = profile['fields']['periodLS'];
-    $("#periodLS").attr('data-value', periodLS);
-    $("#periodLS").text(periodLS.toFixed(5));
-    period_fit = profile['fields']['period_fit'];
-    $("#period_fit").attr('data-value', period_fit);
-    $("#period_fit").text(period_fit.toFixed(5));
-    mag_mean = profile['fields']['mag_mean'];
-    $("#mag_mean").attr('data-value', mag_mean);
-    $("#mag_mean").text(mag_mean.toFixed(5));
-    mag_std = profile['fields']['mag_std'];
-    $("#mag_std").attr('data-value', mag_std);
-    $("#mag_std").text(mag_std.toFixed(5));
     mjd = Array();
     mag = Array();
     err = Array();
