@@ -3,3 +3,4 @@ venv
 staticfiles
 *.ipynb
 *.sqlite3
+*.sass-cache
