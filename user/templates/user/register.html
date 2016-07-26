@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}
 {{ block.super }}
@@ -10,7 +11,7 @@ Register
   <div class="container">
     <div class="card auth-card center-block">
       <h2>Register</h2>
-      <form class="form-signup center-block" method="post" id="register_form">
+      <form class="form-signup center-block" method="post" id="register_form" autocomplete="off">
         {% csrf_token %}
         <fieldset class="form-group">
           <label for="inputUsername" class="sr-only">Username </label>
@@ -33,4 +34,9 @@ Register
     </div>
   </div>
 </main>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/auth.js' %}"></script>
 {% endblock %}

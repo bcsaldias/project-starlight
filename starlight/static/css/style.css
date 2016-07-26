@@ -111,6 +111,8 @@ section {
       margin: 10px 0; }
       #login .form-signin .form-control:focus {
         z-index: 2; }
+    #login .form-signin button[type="submit"] {
+      margin-top: 30px; }
   #login .auth-card {
     width: 40%;
     min-height: 90%;
@@ -185,6 +187,10 @@ section {
   position: relative;
   color: #7b08bc;
   text-shadow: 2px 2px 4px; }
+
+#start-label #start {
+  margin: 25px 0;
+  padding: 20px 0; }
 
 .btn-starlight {
   color: white;
