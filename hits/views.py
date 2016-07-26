@@ -162,6 +162,6 @@ def hits_data(request, hits_id):
 
 def learn(request):
     context = {
-        'title': 'hits-learn',
+        'title': 'learn-hits',
     }
     return render(request, 'hits/hits-learn.html', context)

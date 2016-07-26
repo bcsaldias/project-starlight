@@ -29,10 +29,10 @@ HiTS: {{ hits_id }}
     <div class="card card-starlight" id="hits-profile">
       <ul class="list-unstyled">
         <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits.hits_id }}">{{ hits.hits_id }}</span></li>
-        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS">{{ hits.periodLS }}</span></li>
-        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit">{{ hits.period_fit }}</span></li>
-        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean">{{ hits.mag_mean }}</span></li>
-        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std">{{ hits.mag_std }}</span></li>
+        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS">{{ hits.periodLS|floatformat:4 }}</span></li>
+        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit">{{ hits.period_fit|floatformat:4 }}</span></li>
+        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean">{{ hits.mag_mean|floatformat:4 }}</span></li>
+        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std">{{ hits.mag_std|floatformat:4 }}</span></li>
       </ul>
       <!-- {% if saved %}
         <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>

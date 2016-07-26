@@ -19,6 +19,7 @@ class HitsAdmin(admin.ModelAdmin):
     list_display = ['hits_id', 'periodLS', 'true_label']
     inlines = [DetailInline, VotesInline]
     readonly_fields = ('hits_id', 'period_fit', 'periodLS', 'mag_mean', 'mag_std', 'true_label',)
+    search_fields = ('hits_id','true_label',)
 
 
 class VotesAdmin(admin.ModelAdmin):

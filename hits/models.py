@@ -27,10 +27,10 @@ class VoteHits(models.Model):
         ('QSO', 'Quasar'),
         ('CEP', 'Cepheid'),
         ('CV', 'Cataclysmic Variable'),
-        ('NV', 'Non-variable'),
         ('RRLYR', 'RR Lyrae'),
         ('EB', 'Eclipsing Binary'),
         ('SNe', 'Supernovae'),
+        ('NV', 'Non-variable'),
     )
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
     hits = models.ForeignKey(Hits, on_delete=models.CASCADE, related_name="votes")

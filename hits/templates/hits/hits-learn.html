@@ -1,4 +1,5 @@
 {% extends 'base2.html' %}
+{% load staticfiles %}
 
 {% block title %}
 {{ block.super }}
@@ -12,9 +13,113 @@ Learn: HiTS
       <h1>HiTS - High Cadence Transient Survey</h1>
       <p>
         {% lorem %}
-        <a href="{% url 'hits:learn' %}"    class="text-starlight-purple">Learn More</a>
       </p>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Quasars (QSO)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/QSO_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/QSO_2.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Cepheids (CEP)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_2.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>RR Lyrae (RRLYR)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_2.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Eclipsing Binary (EB)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_2.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Cataclysmic Variable (CV)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CV_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CV_2.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Supernovae (SNe)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/SNe_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <h3>Non-variable (NV)</h3>
+      <p>
+        {% lorem %}
+      </p>
+      <h4>Examples:</h4>
+      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/NV_1.PNG' %}" width=150 class="img-thumbnail" /></a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img src="" class="img-fluid"/>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/hits-learn.js' %}"></script>
 {% endblock %}
