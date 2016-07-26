@@ -160,7 +160,7 @@ def hits_data(request, hits_id):
     return JsonResponse(json_response)
 
 
-def hits_learn(request):
+def learn(request):
     context = {
         'title': 'hits-learn',
     }
