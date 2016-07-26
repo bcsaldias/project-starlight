@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 
-from django.shortcuts import render, redirect
+from django.template import RequestContext
+from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
 
 
@@ -25,3 +25,14 @@ def learn(request):
         'title': 'learn'
     }
     return render(request, 'main/learn.html', context)
+
+
+
+# HTTP Error 400
+def my_page_not_found(request):
+    response = render_to_response(
+        '404.html',
+        context_instance=RequestContext(request)
+    )
+    response.status_code = 400
+    return response
