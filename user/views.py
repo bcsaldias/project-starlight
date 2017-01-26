@@ -1,3 +1,4 @@
+
 import json
 
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -10,7 +11,7 @@ from django.core.urlresolvers import reverse
 from .forms import UserCreateForm
 from .models import Expert
 
-from hits.models import Hits
+from hits.models import MACHOObject
 
 
 def login_user(request):
@@ -78,12 +79,17 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     expert = Expert.objects.get(user=user)
 
-    num_voted = expert.votehits_set.count()
-    max_count = Hits.objects.count()
+    num_voted = expert.vote_set.count()
+    max_count = MACHOObject.objects.count()
+
+    percent_complete = 0
+    if max_count > 0:
+        percent_complete = num_voted / max_count * 100
+        
     progress_hits = {
         'max': max_count,
         'num_voted': num_voted,
-        'percent_complete': num_voted / max_count * 100
+        'percent_complete': percent_complete
     }
     context = {
         'user': user,

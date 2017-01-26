@@ -12,7 +12,7 @@ class Expert(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     points = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=1)
-    dob = models.DateField(null=True, blank=True)
+    dob = models.DateField(null=True, blank=True) #Date of Birth
     country = models.CharField(max_length=50, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
@@ -24,14 +24,3 @@ class Expert(models.Model):
         self.level = level(self.points)
         self.save()
 
-
-class Activities(models.Model):
-    DATA_TYPES = (
-        ('Hits', 'HiTS'),
-    )
-    timestamp = models.DateTimeField(auto_now_add=True)
-    expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
-    datatype = models.CharField(max_length=10, null=True, choices=DATA_TYPES)
-    data_id = models.CharField(max_length=50, null=True)
-    label = models.CharField(null=True, max_length=10)
-    point = models.PositiveSmallIntegerField(default=0)

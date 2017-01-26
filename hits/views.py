@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 
-from .models import Hits, HitsDetail, VoteHits
+from .models import MACHOObject, Vote
 from user.models import Expert
 
 
@@ -15,14 +15,19 @@ from user.models import Expert
 def hits_list(request):
     user = request.user
     expert = Expert.objects.get(user=request.user)
-    num_voted = expert.votehits_set.count()
+    num_voted = expert.vote_set.count()
 
-    hits_query = Hits.objects.all()
+    hits_query = MACHOObject.objects.all()
     max_count = len(hits_query)
+
+    percent_complete = 0
+    if max_count > 0:
+        percent_complete = num_voted / max_count * 100
+
     progress_hits = {
         'max': max_count,
         'num_voted': num_voted,
-        'percent_complete': num_voted / max_count * 100
+        'percent_complete': percent_complete
     }
 
     try:
@@ -50,14 +55,14 @@ def hits_list(request):
     for hits_instance in hits_query[start:end]:
         hits = dict()
         hits['hits_id'] = hits_instance.pk
-        hits['periodLS'] = hits_instance.periodLS
-        hits['mag_mean'] = hits_instance.mag_mean
+        #hits['periodLS'] = hits_instance.periodLS
+        #hits['mag_mean'] = hits_instance.mag_mean
         try:
-            votehits = hits_instance.votes.get(expert=expert)
+            vote = hits_instance.votes.get(expert=expert)
         except:
             hits['label'] = None
         else:
-            hits['label'] = votehits.label
+            hits['label'] = vote.label
         hits_list.append(hits)
 
     context = {
@@ -75,8 +80,9 @@ def hits_list(request):
 
 
 def generate_next(expert):
-    voted = set(expert.votehits_set.values_list('hits', flat=True))
-    non_voted = list(Hits.objects.values_list('pk',flat=True))
+    voted = set(expert.vote_set.values_list('object', flat=True))
+    #expert, expert_id, id, object, object_id, question, value
+    non_voted = list(MACHOObject.objects.values_list('pk',flat=True))
     non_voted = [hits_id for hits_id in non_voted if hits_id not in voted]
 
     next_id = random.choice(non_voted)
@@ -90,7 +96,7 @@ def hits_random(request):
 
     next_id = generate_next(expert)
 
-    path = reverse('hits:detail', kwargs={'hits_id': next_id})
+    path = reverse('hits:detail', args={next_id})
     return redirect(path)
 
 
@@ -100,18 +106,18 @@ def hits_random(request):
 def hits_detail(request, hits_id):
     if request.method == "POST":
         label = request.POST['label']
-        hits = Hits.objects.get(pk=hits_id)
+        hits = MACHOObject.objects.get(pk=hits_id)
         expert = Expert.objects.get(user=request.user)
 
         try:
-            votehits = VoteHits.objects.get(expert=expert, hits=hits)
+            vote = Vote.objects.get(expert=expert, hits=hits)
             created = False
-        except VoteHits.DoesNotExist:
-            votehits = VoteHits.objects.create(expert=expert,
+        except Vote.DoesNotExist:
+            vote = Vote.objects.create(expert=expert,
             hits=hits)
             created = True
-        votehits.label = label
-        votehits.save()
+        vote.label = label
+        vote.save()
 
         point = None
         if created:
@@ -128,17 +134,17 @@ def hits_detail(request, hits_id):
 
     user = request.user
     expert = Expert.objects.get(user=user)
-    hits = get_object_or_404(Hits, hits_id=hits_id)
+    hits = get_object_or_404(MACHOObject, pk=hits_id)
     try:
-        votehits = hits.votes.get(expert=expert)
-    except VoteHits.DoesNotExist:
+        vote = hits.votes.get(expert=expert)
+    except Vote.DoesNotExist:
         label = None
     else:
-        label = votehits.label
+        label = vote.label
     context = {
         'hits': hits,
         'user': user,
-        'choices': VoteHits.HITS_LABELS,
+        #'choices': Vote.HITS_LABELS,
         'label': label,
         'title': 'hits-detail'
     }
@@ -147,7 +153,7 @@ def hits_detail(request, hits_id):
 
 @login_required(login_url='/user/login/')
 def hits_data(request, hits_id):
-    hits = get_object_or_404(Hits, pk=hits_id)
+    hits = get_object_or_404(MACHOObject, pk=hits_id)
     hits_lightcurve = hits.hitsdetail_set.all()
 
     hits = serializers.serialize('json', [hits,])

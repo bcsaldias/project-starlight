@@ -3,21 +3,30 @@
 
 {% block title %}
 {{ block.super }}
-HiTS: {{ hits_id }}
+MACHOObject: {{ macho_id }}
 {% endblock %}
 
 {% block main-content %}
+
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <div id="plot-main"></div>
+      <br>
+      <h1>Is this a X?</h1>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <div id="plot-fold"></div>
+      <div id="plot-main">MAIN PLOT?</div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <div id="plot-fold">FOLDED LIGHTCURVE</div>
     </div>
   </div>
 </div>
@@ -28,12 +37,58 @@ HiTS: {{ hits_id }}
   <div class="col-xs-12">
     <div class="card card-starlight" id="hits-profile">
       <ul class="list-unstyled">
-        <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits.hits_id }}">{{ hits.hits_id }}</span></li>
-        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS">{{ hits.periodLS|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit">{{ hits.period_fit|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean">{{ hits.mag_mean|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std">{{ hits.mag_std|floatformat:4 }}</span></li>
+
+        <li class="hits-profile-item">ID: <br />
+          <span id="macho_id" class="hits-profile-data" 
+                data-value="{{ hits.macho_id }}">{{ hits.macho_id }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Amplitude: <br />
+          <span id="Amplitude" class="hits-profile-data" 
+                data-value="{{ hits.Amplitude }}">{{ hits.Amplitude }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Autocor_length: <br />
+          <span id="Autocor_length" class="hits-profile-data" 
+                data-value="{{ hits.Autocor_length }}">{{ hits.Autocor_length }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">CAR_mean: <br />
+          <span id="CAR_mean" class="hits-profile-data" 
+                data-value="{{ hits.CAR_mean }}">{{ hits.CAR_mean }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Color: <br />
+          <span id="Color" class="hits-profile-data" 
+                data-value="{{ hits.Color }}">{{ hits.Color }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">LinearTrend: <br />
+          <span id="macho_id" class="hits-profile-data" 
+                data-value="{{ hits.macho_id }}">{{ hits.LinearTrend }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">MaxSlope: <br />
+          <span id="macho_id" class="hits-profile-data" 
+                data-value="{{ hits.macho_id }}">{{ hits.MaxSlope }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Mean: <br />
+          <span id="macho_id" class="hits-profile-data" 
+                data-value="{{ hits.macho_id }}">{{ hits.Mean }}
+          </span>
+        </li>
+
+        </li>
       </ul>
+
       <!-- {% if saved %}
         <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>
       {% else %}
@@ -53,20 +108,12 @@ HiTS: {{ hits_id }}
   <div class="col-xs-12">
     <div class="card card-starlight" id="vote-card">
       <form>
-          {% csrf_token %}
+        <!--  {% csrf_token %} -->
         <div class="form-group">
-          <label for="select-star">Select Category:</label>
-          <select class='form-control form-control-lg' id="select-star">
-          {% for value, text in choices %}
-            {% if label == value %}
-              <option value="{{ value }}" selected>{{ text }}</option>
-            {% else %}
-              <option value="{{ value }}">{{ text }}</option>
-            {% endif %}
-          {% endfor %}
-          </select>
+          <label for="select-star">Is this a X?</label>
         </div>
-        <button type="button" class="btn btn-starlight pull-right" id="vote" >Submit <i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-starlight pull-right" id="yes_button" >YES <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-starlight pull-right" id="no_button" >NO <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true"></i></button>
         <h1 id="point" hidden></h1>
       </form>
     </div>

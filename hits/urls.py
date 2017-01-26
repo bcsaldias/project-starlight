@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^$', views.hits_list, name="list"),
     url(r'learn-hits/$', views.learn, name="learn"),
     url(r'random$', views.hits_random, name="random"),
-    url(r'(?P<hits_id>[\w]+)/$', views.hits_detail, name="detail"),
-    url(r'(?P<hits_id>[\w]+)/data$', views.hits_data, name="data"),
+    url(r'([0-9.]*)/$', views.hits_detail, name="detail"),
+    url(r'([0-9.]*)/data$', views.hits_data, name="data"),
 ]

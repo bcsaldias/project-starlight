@@ -10,9 +10,10 @@ HiTS
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <h2>HiTS : High Cadence Transient Survey</h2>
+      <br>
+      <h2>Crowdsourcing - MACHO Project </h2>
       <p>
-        {% lorem %}
+        <!-- {% lorem %} -->
         <a href="{% url 'hits:learn' %}"   class="text-starlight-purple">Learn More.</a>
       </p>
     </div>
@@ -62,9 +63,7 @@ HiTS
         <thead>
           <tr>
             <td>ID</td>
-            <td>PeriodLS</td>
-            <td>Avg. Mag.</td>
-            <td>Label</td>
+            <td>Votes</td>
           </tr>
         </thead>
         <tbody>
@@ -78,8 +77,8 @@ HiTS
                   {% endif %}
                 </span> -->
               </td>
-              <td>{{ hits.periodLS|floatformat:3 }}</td>
-              <td>{{ hits.mag_mean|floatformat:3 }}</td>
+              <!-- <td>{{ hits.periodLS|floatformat:3 }}</td>
+              <td>{{ hits.mag_mean|floatformat:3 }}</td> -->
               {% if hits.label %}
               <td>{{ hits.label }}</td>
               {% else %}
