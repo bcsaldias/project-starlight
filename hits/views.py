@@ -146,6 +146,8 @@ def hits_detail(request, hits_id):
         'user': user,
         #'choices': Vote.HITS_LABELS,
         'label': label,
+        'folded_image': "/static/media/images/"+str(hits.folded_image),
+        'original_image': "/static/media/images/"+str(hits.original_image),
         'title': 'hits-detail'
     }
     return render(request, 'hits/hits-detail.html', context)
