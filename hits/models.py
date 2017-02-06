@@ -72,6 +72,9 @@ class MACHOObject(models.Model):
     StetsonL = models.FloatField(blank=True, null=True)
     label = models.CharField(max_length=15, null=True)
 
+    folded_image = models.ImageField(default = 'media/None/no-img.png')
+    original_image = models.ImageField(default = 'media/None/no-img.png')
+
     def __str__(self):
         return self.macho_id
 

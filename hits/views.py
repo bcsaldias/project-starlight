@@ -154,14 +154,10 @@ def hits_detail(request, hits_id):
 @login_required(login_url='/user/login/')
 def hits_data(request, hits_id):
     hits = get_object_or_404(MACHOObject, pk=hits_id)
-    hits_lightcurve = hits.hitsdetail_set.all()
-
-    hits = serializers.serialize('json', [hits,])
-    hits_lightcurve = serializers.serialize('json', hits_lightcurve, fields=('mjd','mag','err'))
+    hits_lightcurve = hits
 
     json_response = {
-        'profile': hits,
-        'lightcurve': hits_lightcurve
+        'profile': "SHAKIRA",
     }
     return JsonResponse(json_response)
 

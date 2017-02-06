@@ -2,30 +2,14 @@
 $(function() {
   var hits_id, url;
   hits_id = $('#hits_id').attr('data-value');
-  url = '/hits/' + hits_id + '/data';
-  $.getJSON(url, function(result) {
-    var datapoint, err, i, lcdata, len, lightcurve, mag, mjd, periodLS, profile;
-    $("#vote").removeAttr("hidden");
-    profile = JSON.parse(result['profile'])[0];
-    lightcurve = JSON.parse(result['lightcurve']);
-    periodLS = profile['fields']['periodLS'];
-    mjd = Array();
-    mag = Array();
-    err = Array();
-    for (i = 0, len = lightcurve.length; i < len; i++) {
-      datapoint = lightcurve[i];
-      mjd.push(datapoint['fields']['mjd']);
-      mag.push(datapoint['fields']['mag']);
-      err.push(datapoint['fields']['err']);
-    }
-    lcdata = {
-      mjd: mjd,
-      mag: mag,
-      err: err
-    };
-    mainPlot(lcdata);
-    return foldPlot(lcdata, periodLS);
-  });
+  PeriodLS = $('#PeriodLS').attr('data-value');
+  console.log(hits_id, PeriodLS);
+  //url = '/hits/' + hits_id + '/data';
+  //$.getJSON(url, function(result) {
+    
+  //  return foldPlot(lcdata, periodLS);
+  //});
+  
   return $("#vote").click(function(e) {
     var label;
     e.preventDefault();

@@ -4,3 +4,4 @@ staticfiles
 *.ipynb
 *.sqlite3
 *.sass-cache
+*/media
