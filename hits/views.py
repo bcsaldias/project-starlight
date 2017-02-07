@@ -1,4 +1,5 @@
 import math, random
+from collections import Counter
 
 from django.core import serializers
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 
-from .models import MACHOObject, Vote
+from .models import MACHOObject, Vote, PendingQuestion
 from user.models import Expert
 
 
@@ -17,7 +18,11 @@ def hits_list(request):
     expert = Expert.objects.get(user=request.user)
     num_voted = expert.vote_set.count()
 
-    hits_query = MACHOObject.objects.all()
+    hits_query = PendingQuestion.objects.filter(expert=expert)
+    hits_query = [hits.object for hits in hits_query]
+    counter_hits = Counter(hits_query)
+    hits_query = list(set(hits_query))
+
     max_count = len(hits_query)
 
     percent_complete = 0
@@ -51,18 +56,11 @@ def hits_list(request):
     if page > 4:
         pages = [page+i for i in range(-2,3,1) if 0 < page+i <= max_page]
 
-    hits_list = list()
+    hits_list = []
     for hits_instance in hits_query[start:end]:
         hits = dict()
-        hits['hits_id'] = hits_instance.pk
-        #hits['periodLS'] = hits_instance.periodLS
-        #hits['mag_mean'] = hits_instance.mag_mean
-        try:
-            vote = hits_instance.votes.get(expert=expert)
-        except:
-            hits['label'] = None
-        else:
-            hits['label'] = vote.label
+        hits['hits_id'] = hits_instance
+        hits['votes_left'] = counter_hits[hits_instance]
         hits_list.append(hits)
 
     context = {
@@ -80,13 +78,10 @@ def hits_list(request):
 
 
 def generate_next(expert):
-    voted = set(expert.vote_set.values_list('object', flat=True))
-    #expert, expert_id, id, object, object_id, question, value
-    non_voted = list(MACHOObject.objects.values_list('pk',flat=True))
-    non_voted = [hits_id for hits_id in non_voted if hits_id not in voted]
 
-    next_id = random.choice(non_voted)
-
+    hits_query = PendingQuestion.objects.filter(expert=expert)
+    hits_query = [hits.object for hits in hits_query]
+    next_id = random.choice(hits_query)
     return next_id
 
 
@@ -104,51 +99,63 @@ def hits_random(request):
 @csrf_exempt
 @login_required(login_url='/user/login/')
 def hits_detail(request, hits_id):
-    if request.method == "POST":
-        label = request.POST['label']
+    if request.method == "POST": 
+        print("POST")
+        value = request.POST['value']
+        question = request.POST['question']
         hits = MACHOObject.objects.get(pk=hits_id)
         expert = Expert.objects.get(user=request.user)
+        question = PendingQuestion.objects.get(expert=expert, object=hits, question=question)
 
         try:
-            vote = Vote.objects.get(expert=expert, hits=hits)
-            created = False
-        except Vote.DoesNotExist:
-            vote = Vote.objects.create(expert=expert,
-            hits=hits)
+            if value.lower() == 'true':
+                value = True
+            else:
+                value = False
+            vote = Vote.objects.create(expert=expert, object=hits, 
+                                        value=value, question=question.question)
+            vote.save()
+            question.delete()
             created = True
-        vote.label = label
-        vote.save()
+        except:
+            created = False
 
         point = None
         if created:
             point = 1
             expert.update_level(point)
 
-        next_id = generate_next(expert)
+        #next_id = generate_next(expert)
 
-        json_response = {
-            'point': point,
-            'next': next_id
-        }
-        return JsonResponse(json_response)
+        #json_response = {
+        #    'point': point,
+        #    'next': next_id
+        #}
+        #return JsonResponse(json_response)
 
     user = request.user
     expert = Expert.objects.get(user=user)
-    hits = get_object_or_404(MACHOObject, pk=hits_id)
+    hits = MACHOObject.objects.get(pk=hits_id)
+
     try:
-        vote = hits.votes.get(expert=expert)
-    except Vote.DoesNotExist:
-        label = None
-    else:
-        label = vote.label
+    	question = PendingQuestion.objects.filter(expert=expert, object=hits)[0]
+    except:
+    	#next_id = generate_next(expert)
+    	return hits_list(request)
+
+
+    pre = ''
+    if question.question in ['Eclipsing Binary']:
+        pre = 'n'
+
     context = {
         'hits': hits,
         'user': user,
-        #'choices': Vote.HITS_LABELS,
-        'label': label,
+        'pre':pre,
+        'question': question.question,
         'folded_image': "/static/media/images/"+str(hits.folded_image),
         'original_image': "/static/media/images/"+str(hits.original_image),
-        'title': 'hits-detail'
+        'title': 'hits-detail',
     }
     return render(request, 'hits/hits-detail.html', context)
 

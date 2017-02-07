@@ -63,7 +63,7 @@ HiTS
         <thead>
           <tr>
             <td>ID</td>
-            <td>Votes</td>
+            <td>Votes left</td>
           </tr>
         </thead>
         <tbody>
@@ -79,8 +79,8 @@ HiTS
               </td>
               <!-- <td>{{ hits.periodLS|floatformat:3 }}</td>
               <td>{{ hits.mag_mean|floatformat:3 }}</td> -->
-              {% if hits.label %}
-              <td>{{ hits.label }}</td>
+              {% if hits.votes_left %}
+              <td>{{ hits.votes_left }} / 4 </td>
               {% else %}
               <td> - </td>
               {% endif %}

@@ -10,9 +10,9 @@ MACHOObject: {{ macho_id }}
 
 <div class="row">
   <div class="col-xs-12">
-    <div class="card card-starlight">
+    <div id="question" data-value="{{ question }}" class="card card-starlight">
       <br>
-      <h1>Is this a X?</h1>
+      <h1>Is this a{{pre}} {{question}}?</h1>
     </div>
   </div>
 </div>
@@ -109,7 +109,7 @@ MACHOObject: {{ macho_id }}
       <form>
         <!--  {% csrf_token %} -->
         <div class="form-group">
-          <label for="select-star">Is this a X?</label>
+          <label for="select-star">Is this a{{pre}} {{question}}?</label>
         </div>
         <button type="button" class="btn btn-starlight pull-right" id="yes_button" >YES <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-starlight pull-right" id="no_button" >NO <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true"></i></button>

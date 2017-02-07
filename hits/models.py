@@ -86,4 +86,21 @@ class Vote(models.Model):
     value = models.BooleanField()
 
     class Meta:
-        unique_together = ['expert','question']
+        unique_together = ['expert','object','question']
+
+
+    def __str__(self):
+        return "{} voted {} for: is this a {}?".format(self.expert, self.value, self.question)
+
+class PendingQuestion(models.Model):
+
+    expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
+    object = models.ForeignKey(MACHOObject, on_delete=models.CASCADE)
+    question = models.CharField(max_length=15, null=True)
+
+    class Meta:
+        unique_together = ['expert','object','question']
+
+
+    def __str__(self):
+        return "{} is asked: is {} a {}?".format(self.expert, self.object, self.question)

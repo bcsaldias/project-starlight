@@ -1,5 +1,8 @@
 
 import json
+import numpy as np
+CHOICES = ['Cepheid','RR Lyrae', 'Long-period variable', 'Eclipsing Binary']
+N_CHOICES = len(CHOICES)
 
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,7 +14,7 @@ from django.core.urlresolvers import reverse
 from .forms import UserCreateForm
 from .models import Expert
 
-from hits.models import MACHOObject
+from hits.models import MACHOObject, PendingQuestion
 
 
 def login_user(request):
@@ -44,7 +47,18 @@ def register(request):
             user = user_form.save()
             password = request.POST['password1']
 
-            Expert.objects.create(user=user)
+            expert = Expert.objects.create(user=user)
+
+            # Create the questions.
+            objects = MACHOObject.objects.all()
+            for hits in objects:
+                Nq=np.random.randint(1, N_CHOICES+1)
+                ma=np.random.choice(CHOICES,Nq,replace=False)
+                for label in ma:
+                    p_question = PendingQuestion.objects.create(expert=expert, object=hits)
+                    p_question.question = label
+                    p_question.save()
+
 
             user = authenticate(username=user.username, password=password)
 

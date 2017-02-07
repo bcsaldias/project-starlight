@@ -4,22 +4,48 @@ $(function() {
   hits_id = $('#hits_id').attr('data-value');
   PeriodLS = $('#PeriodLS').attr('data-value');
   console.log(hits_id, PeriodLS);
-  //url = '/hits/' + hits_id + '/data';
-  //$.getJSON(url, function(result) {
-    
-  //  return foldPlot(lcdata, periodLS);
-  //});
-  
-  return $("#vote").click(function(e) {
-    var label;
-    e.preventDefault();
-    label = $("#select-star").find(':selected').val();
+});
+
+$(function(){
+ $("#yes_button").click(function(e) {
+    console.log('YES',$('#question').attr('data-value'));
+    post_vote($('#question').attr('data-value'), true);
+  });
+ 
+});
+
+
+$(function(){
+ $("#no_button").click(function(e) {
+    console.log('NO',$('#question').attr('data-value'));
+    post_vote($('#question').attr('data-value'), false);
+  });
+ 
+});
+
+function post_vote(question, vote) {
+    var hits_id, url;
+    hits_id = $('#hits_id').attr('data-value');
     url = '/hits/' + hits_id + '/';
+    console.log(url);
+    
+
     return $.post(url, {
-      'label': label
-    }, function(result) {
+      'value': vote,
+      'question': question
+    })function(result) {
+      
       var new_url, next, point;
       next = result['next'];
+      new_url = '/hits/' + next + '/';
+      window.history.pushState({}, hits_id, url);
+      return window.location.replace(new_url);
+    
+    }
+}
+
+
+/*
       point = result['point'];
       if (point >= 1) {
         point = "+" + point;
@@ -32,10 +58,4 @@ $(function() {
           return window.location.replace(new_url);
         });
       } else {
-        new_url = '/hits/' + next + '/';
-        window.history.pushState({}, hits_id, url);
-        return window.location.replace(new_url);
-      }
-    });
-  });
-});
+*/
