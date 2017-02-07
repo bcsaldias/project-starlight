@@ -77,10 +77,15 @@ def hits_list(request):
     return render(request, 'hits/hits-list.html', context)
 
 
-def generate_next(expert):
+def generate_next(expert, hits=None):
 
     hits_query = PendingQuestion.objects.filter(expert=expert)
-    hits_query = [hits.object for hits in hits_query]
+    if hits is not None:
+        try:
+            hits_query = [hits_query.filter(object=hits)[0]]
+        except:
+            pass
+    hits_query = [hits.object.macho_id for hits in hits_query]
     next_id = random.choice(hits_query)
     return next_id
 
@@ -125,13 +130,13 @@ def hits_detail(request, hits_id):
             point = 1
             expert.update_level(point)
 
-        #next_id = generate_next(expert)
+        next_id = generate_next(expert, hits)
 
-        #json_response = {
-        #    'point': point,
-        #    'next': next_id
-        #}
-        #return JsonResponse(json_response)
+        json_response = {
+            'point': point,
+            'next': next_id
+        }
+        return JsonResponse(json_response)
 
     user = request.user
     expert = Expert.objects.get(user=user)

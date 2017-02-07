@@ -29,19 +29,17 @@ function post_vote(question, vote) {
     url = '/hits/' + hits_id + '/';
     console.log(url);
     
-
     return $.post(url, {
       'value': vote,
       'question': question
-    })function(result) {
-      
+    }, function(result) {
       var new_url, next, point;
       next = result['next'];
       new_url = '/hits/' + next + '/';
       window.history.pushState({}, hits_id, url);
       return window.location.replace(new_url);
     
-    }
+    })
 }
 
 
