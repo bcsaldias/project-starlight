@@ -8,15 +8,78 @@ Learn
 {% block main-content %}
 <div class="row">
   <div class="col-xs-12">
-      <h1>Learn about Our Projects</h1>
+      <br>
+      <h1></h1>
   </div>
 </div>
+
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <h1>HiTS - High Cadence Transient Survey</h1>
+      <br>
+      <h1 style="color: #ffff00;">Classification</h1>
       <p>
-        {% lorem %} <a href="{% url 'hits:learn' %}" class="text-starlight-purple">Learn More</a>
+        In machine learning and statistics, classification is the problem of identifying to which of a set of categories (sub-populations) a new observation belongs.
+      </p>
+      <p>
+        An example would be assigning a given email into "spam" or "non-spam" classes or assigning a diagnosis to a given patient as described by observed characteristics of the patient (gender, blood pressure, presence or absence of certain symptoms, etc.).
+      </p>
+      <h5 style="color: #ffff00;">Types of questions</h5>
+          <p>Let say there exist 3 classes: cat, dog and raccoon. Then the main goal is to classify all the images that each user will be presented. In order to get labels to cassify, each user will be presented randomly with 2 type of questions:</p>
+          <ul>
+          <li><span style="color: #ffff00;">Yes or No questions: </span>
+              for each object each user will response one, two or three of these questions:</li>
+          </ul>
+          <p style="padding-left: 60px;">Is this a <span style="color: #ffff00;">cat</span>? yes or no<br />Is this a <span style="color: #ffff00;">dog</span>? yes or no<br />Is this a <span style="color: #ffff00;">raccoon</span>? yes or no</p>
+          <ul>
+          <li><span style="color: #ffff00;">A or B or C questions: </span>
+              for some objects (at max 10% of the questions) each user will response this question:</li>
+          </ul>
+          <p style="padding-left: 60px;">What is the <span style="color: #ffff00;">class</span> of this object? cat or dog or racoon</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1 style="color: #ffff00;">Crowdsourcing</h1>
+      <p>
+         Crowdsourcing is the process of obtaining needed content by soliciting contributions from a large group of people, especially an on-line community. In a classification scenario the content asked may be the class of an observation.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1 style="color: #ffff00;">The Catalina Surveys Data</h1>
+      <p style="text-align: right;">
+              <a href="http://nesssi.cacr.caltech.edu/DataRelease/"  
+            target="_blank" class="text-starlight-purple">Go to the surveys data</a></p>
+              </p>
+      <p style="text-align: right;">
+              <a href="https://arxiv.org/abs/1405.4290"  
+            target="_blank" class="text-starlight-purple">
+            Go to the Catalogs paper</a></p>
+              </p>
+      <p>
+        <!--{% lorem %}-->
+        <p>In this project we present a subset of the Catalina Surveys Data to a crowd of labelers. Every labeler have to give response for about 1000 questions in order to finish its participation in the project: HCDS votes.</p>
+        <p>The selected subset contains only <a href="{% url 'hits:learn' %}"><span style="color: #ffff00;">4 classes </span></a>of stars:</p>
+
+        <ul>
+        <li>Cepheid-II</li>
+        <li>Eclipsing Post Common Envelope Binary</li>
+        <li>Long-Period Variable</li>
+        <li>RR Lyrae</li>
+        </ul>
+        <p>Therefore, all the questions assume that the only possible classes are these last four.</p>
+        <p style="text-align: right;">
+        <a href="{% url 'hits:learn' %}" class="text-starlight-purple">Learn about the stars</a></p>
       </p>
     </div>
   </div>

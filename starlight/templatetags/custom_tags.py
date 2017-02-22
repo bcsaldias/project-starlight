@@ -21,7 +21,7 @@ def paginate(value1, value2):
 
 @register.filter(name='badge')
 def badge(level, size=120):
-    src = "/static/img/badges/level-"+str(level)+".svg"
+    src = "/static/img/badges/level-"+str(min(level,8))+".svg"
     return mark_safe("<img src='%s' width='%s' class='level-badge'>" % (src, size))
 
 

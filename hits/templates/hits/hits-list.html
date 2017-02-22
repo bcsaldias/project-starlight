@@ -10,10 +10,12 @@ HiTS
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <h2>HiTS : High Cadence Transient Survey</h2>
-      <p>
-        {% lorem %}
-        <a href="{% url 'hits:learn' %}"   class="text-starlight-purple">Learn More.</a>
+      <br>
+      <h2><span style="color:yellow;">Harvard-Chile Data Science School </span>- Crowdsourcing</h2>
+
+      <p style="text-align: right; ">
+        <a style="color:yellow;"
+        href="{% url 'hits:learn' %}" target="_blank">Learn more before vote!</a>
       </p>
     </div>
   </div>
@@ -62,26 +64,24 @@ HiTS
         <thead>
           <tr>
             <td>ID</td>
-            <td>PeriodLS</td>
-            <td>Avg. Mag.</td>
-            <td>Label</td>
+            <td>{{progress_hits.num_voted}} votes</td>
           </tr>
         </thead>
         <tbody>
-          {% for hits in hits_list %}
+          {% for hits in hits_list%}
             <tr>
               <td>
-                <a href="{% url 'hits:detail' hits.hits_id %}">{{ hits.hits_id }}</a>
+                <a href="{% url 'hits:detail' hits.hits_id %}">Curve {{ hits.hits_id }}</a>
                 <!-- <span id="saved">
                   {% if hits.saved %}
                   <i class="fa fa-bookmark" aria-hidden="true"></i>
                   {% endif %}
                 </span> -->
               </td>
-              <td>{{ hits.periodLS|floatformat:3 }}</td>
-              <td>{{ hits.mag_mean|floatformat:3 }}</td>
-              {% if hits.label %}
-              <td>{{ hits.label }}</td>
+              <!-- <td>{{ hits.periodLS|floatformat:3 }}</td>
+              <td>{{ hits.mag_mean|floatformat:3 }}</td> -->
+              {% if hits.votes_given %}
+              <td>{{ hits.votes_given }}</td>
               {% else %}
               <td> - </td>
               {% endif %}

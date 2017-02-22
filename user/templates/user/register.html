@@ -7,11 +7,20 @@ Register
 {% endblock %}
 
 {% block content %}
+<script>
+function Loader(form) {
+    if (form.inputUsername.value && form.inputEmail.value && form.inputPassword.value == form.inputConfirm.value){
+      document.getElementById("loader").style = "display:True";
+      document.getElementById("message").style = "display:True";
+    }
+}
+</script>
+
 <main id="register">
   <div class="container">
     <div class="card auth-card center-block">
       <h2>Register</h2>
-      <form class="form-signup center-block" method="post" id="register_form" autocomplete="off">
+      <form class="form-signup center-block" method="post" id="register_form" autocomplete="off" name="register_form">
         {% csrf_token %}
         <fieldset class="form-group">
           <label for="inputUsername" class="sr-only">Username </label>
@@ -29,9 +38,14 @@ Register
           <label for="inputConfirm" class="sr-only">Password Confirm</label>
           <input type="password" class="form-control" id="inputConfirm" placeholder="Password Confirmation" name="password2" required>
         </fieldset>
-        <button class="btn btn-lg btn-starlight btn-block" type="submit">Register</button>
+        <p style="display:none" id='message' align="center">Creating user!</p>
+        <div class="loader center-block" style="display:none" id="loader"></div>
+        <button class="btn btn-lg btn-starlight btn-block" type="submit" onclick="Loader(this.form)">Register</button>
       </form>
+    
     </div>
   </div>
 </main>
+
 {% endblock %}
+

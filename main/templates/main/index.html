@@ -11,8 +11,13 @@ Home
     <header id="header">
       <div class="container">
         <div class="jumbotron">
-          <h1 class="display-3">Project Starlight</h1>
-          <p>{% lorem %}</p>
+          <h1 class="display-3">Crowdsourcing Project</h1>
+          <p></p>
+
+    <p>In machine learning, classification is a supervised problem of identifying to which class a new observation belongs. This presents many difficulties such as: small training sets, high cost of building a training set, and it is likely they can't even represent all the domains and areas where the true classes live. One of the main challenges is the situation where unlabeled data is abundant, and even though there is a crowd of experts, manually labeling is expensive.</p>
+
+    <p>The current research method proposes a possible cheaper way to asking by keeping accuracy metrics. To reach all the goals we need your talen as a labeler!</p>
+
           <a href="{% url 'user:login' %}" class="btn btn-lg btn-starlight center-block get-started"  role="button">
             Get Started
             <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -23,19 +28,12 @@ Home
     <section id="about">
       <div class="container">
         <h1>About</h1>
-        <p>{% lorem %}</p>
-      </div>
-    </section>
-    <section id="learn" class="shaded">
-      <div class="container">
-        <h1>Learn</h1>
-        <p>{% lorem %}</p>
-      </div>
-    </section>
-    <section id="get-started">
-      <div class="container">
-        <h1>Get Started</h1>
-        <p>{% lorem %}</p>
+        <p></p>
+        <p>
+          Each user is presented to a random serie of questions. Per each aswered question  the labeler is rewarded with a different amount of points depending on how accurated it has been until the last question. The accuracy score of each labeler is updated only with certain objects (for which the research group know the ground truth).
+        </p>
+        <p>As labeler you will have some examples and help about how to respond accurately. So do not worry about your previous knowledge and try your best guess!</p>
+        <p>To learn more about how to be prepared go to: <a href="/learn/" target="_blank"  class="text-starlight-purple">Learn more.</a> </p>
       </div>
     </section>
 </main>

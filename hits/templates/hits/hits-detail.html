@@ -3,37 +3,203 @@
 
 {% block title %}
 {{ block.super }}
-HiTS: {{ hits_id }}
+CatalinaObject: {{ ID }}
 {% endblock %}
 
 {% block main-content %}
+
 <div class="row">
   <div class="col-xs-12">
-    <div class="card card-starlight">
-      <div id="plot-main"></div>
+
+    <div id="question" data-value="{{ question }}" class="card card-starlight">
+      <span hidden="True" id="question_type" data-value="{{question_type}}"></span>
+      <span hidden="True" id="private_question" data-value="{{private_question}}"></span>
+      <br>
+      {% if question_type == 'yn' %}
+        <h1>Is this a{{pre}}<span style="color:yellow;"> {{question}}</span>?</h1>
+      {% else %}
+        <h1>What is the <span style="color:yellow;">class</span> of this object?</h1>
+      {% endif %}
+
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
-      <div id="plot-fold"></div>
+      <br>
+
+          <img src={{folded_image}} width="100%"> 
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+          <img src={{original_image}} width="100%"> 
+    </div>
+  </div>
+</div>
+
+{% if question == 'Long-period variable' %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">{{question}} stars</span>:</h1>
+      <br>
+          <img src="{% static 'img/examples/LPV_89.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_177.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_281.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_581.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_607.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% elif question == 'Cepheid' %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">{{question}} stars</span>:</h1>
+      <br>
+          <img src="{% static 'img/examples/CEP_65.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/CEP_86.png'  %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/CEP_169.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/CEP_442.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/CEP_633.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% elif question == 'RR Lyrae' %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">{{question}} stars</span>:</h1>
+      <br>
+          <img src="{% static 'img/examples/RRLYR_617.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_695.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_784.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_794.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_810.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% elif question == 'Eclipsing Binary' %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">{{question}} stars</span>:</h1>
+      <br>
+          <img src="{% static 'img/examples/EB_66.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/EB_181.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/EB_241.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/EB_324.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/EB_328.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+        <br>
+        <p style="text-align: right;">
+        <a href="/hits/learn-catalina/" target="_blank"><span style="color:yellow;">
+            Click to learn more</span>.</a>
+        </p>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
 {% endblock %}
 
 {% block right-side %}
-<div class="row">
+<div class="row" id="star-info">
   <div class="col-xs-12">
     <div class="card card-starlight" id="hits-profile">
+      <br>
       <ul class="list-unstyled">
-        <li class="hits-profile-item">ID: <br /><span id="hits_id" class="hits-profile-data" data-value="{{ hits.hits_id }}">{{ hits.hits_id }}</span></li>
-        <li class="hits-profile-item">PeriodLS: <br /><span class="hits-profile-data" id="periodLS">{{ hits.periodLS|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Period Fit: <br /><span class="hits-profile-data"   id="period_fit">{{ hits.period_fit|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Average Magnitude: <br /><span class="hits-profile-data"  id="mag_mean">{{ hits.mag_mean|floatformat:4 }}</span></li>
-        <li class="hits-profile-item">Standard Deviation: <br /><span class="hits-profile-data"  id="mag_std">{{ hits.mag_std|floatformat:4 }}</span></li>
+
+      
+
+        <li class="hits-profile-item" hidden="True">hits_id: <br />
+          <span id="hits_id" class="hits-profile-data" 
+                data-value="{{ hits.catalina_id }}">{{ hits.catalina_id }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Period (days): <br />
+          <span id="PeriodLS" class="hits-profile-data" 
+                data-value="{{ hits.Period }}">{{ hits.Period }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Amplitude: <br />
+          <span id="PeriodLS" class="hits-profile-data" 
+                data-value="{{ hits.Amplitude }}">{{ hits.Amplitude }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">RA: <br />
+          <span id="PeriodLS" class="hits-profile-data" 
+                data-value="{{ hits.RA }}">{{ hits.RA }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">Dec: <br />
+          <span id="PeriodLS" class="hits-profile-data" 
+                data-value="{{ hits.Dec }}">{{ hits.Dec }}
+          </span>
+        </li>
+
+        <li class="hits-profile-item">V (mag): <br />
+          <span id="PeriodLS" class="hits-profile-data" 
+                data-value="{{ hits.V }}">{{ hits.V }}
+          </span>
+        </li>
+
+        </li>
       </ul>
+      <img src={{folded_image}} width="100%"> 
+
       <!-- {% if saved %}
         <button id="save" type="button" class="btn btn-starlight" value="true"><i class="fa fa-check" aria-hidden="true"></i> Saved</button>
       {% else %}
@@ -49,34 +215,69 @@ HiTS: {{ hits_id }}
     </div>
   </div>
 </div> -->
+
+{% if question_type == 'yn' %}
+
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight" id="vote-card">
       <form>
-          {% csrf_token %}
+        <!--  {% csrf_token %} -->
         <div class="form-group">
-          <label for="select-star">Select Category:</label>
-          <select class='form-control form-control-lg' id="select-star">
-          {% for value, text in choices %}
-            {% if label == value %}
-              <option value="{{ value }}" selected>{{ text }}</option>
-            {% else %}
-              <option value="{{ value }}">{{ text }}</option>
-            {% endif %}
-          {% endfor %}
-          </select>
+          <label for="select-star">Is this a{{pre}} <span style="color:yellow;"> {{question}}</span>?</label>
         </div>
-        <button type="button" class="btn btn-starlight pull-right" id="vote" >Submit <i class="fa fa-caret-square-o-right fa-lg" aria-hidden="true"></i></button>
+        <!--{% if question == 'Cepheid' or question == 'RR Lyrae' %}
+          <br>
+        {% endif %}-->
+        <p><button type="button" data-tooltip="You can also press 'Y' or 'right-arrow'."
+        class="btn btn-starlight pull-right tooltip-bottom" id="yes_button" >YES <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i></button></p>
+
+        <p><button type="button" data-tooltip="You can also press 'N' or 'left-arrow'."
+        class="btn btn-starlight pull-right tooltip-bottom" id="no_button" >NO <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true"></i></button></p>
         <h1 id="point" hidden></h1>
       </form>
     </div>
   </div>
 </div>
+{% else %}
+
+
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight" id="hits-profile">
+      <ul class="list-unstyled">
+        <div class="form-group">
+          <label for="select-star">What is this <span style="color:yellow;">class</span>?</label>
+        </div>
+        <li class="hits-profile-item">
+          <button type="button" class="btn btn-starlight pull-right" id="ceph_button" >Cepheid</button>
+              <br>
+        </li>
+        <li class="hits-profile-item"><br />
+          <button type="button" class="btn btn-starlight pull-right" id="eb_button" >Eclipsing Binary</button>
+             <br>
+        </li>
+        <li class="hits-profile-item"><br>
+          <button type="button" class="btn btn-starlight pull-right" id="lpv_button" >Long-period variable</button>
+        </li>
+        <li class="hits-profile-item"><br><br>
+          <button type="button" class="btn btn-starlight pull-right" id="rrl_button" >RR Lyrae</button>
+           <br>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+{% endif %}
+
+
 {% endblock %}
 
 {% block script %}
 {{ block.super }}
-<script src="{% static 'js/plotly-latest.min.js' %}"></script>
-<script src="{% static 'js/plot-function.js' %}"></script>
 <script src="{% static 'js/hits-detail.js' %}"></script>
 {% endblock %}

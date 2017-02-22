@@ -3,14 +3,15 @@
 
 {% block title %}
 {{ block.super }}
-Ranking: All Time
+Ranking: Harvard Chile
 {% endblock %}
 
 {% block main-content %}
 <div class="card card-starlight">
   <div class="row">
     <div class="col-xs-12">
-      <h2 class="ranking-header-text">Ranking: All Time</h2>
+      <br>
+      <h2 class="ranking-header-text">Ranking: Harvard Chile</h2>
     </div>
   </div>
   <div class="row">
@@ -19,9 +20,10 @@ Ranking: All Time
         <thead>
           <tr>
             <th>#</th>
-            <th>Username</th>
-            <th>Level</th>
-            <th>Points</th>
+            <th style="color:yellow;">Username</th>
+            <th style="color:yellow;">Level</th>
+            <th style="color:yellow;">Points</th>
+            <th style="color:yellow;">Accuracy Score</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +34,7 @@ Ranking: All Time
             </a></td>
             <td>{{ expert.level|badge:30 }}</td>
             <td>{{ expert.points }}</td>
+            <td>{{ expert.current_accuracy }}</td>
           </tr>
           {% endfor %}
         </tbody>

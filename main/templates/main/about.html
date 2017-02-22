@@ -1,4 +1,5 @@
 {% extends 'base2.html' %}
+{% load staticfiles %}
 
 {% block title %}
 {{ block.super }}
@@ -8,7 +9,87 @@ About
 {% block main-content %}
 <div class="row">
   <div class="col-xs-12">
-      <h1>About Page</h1>
+      <br>
+      <h1></h1>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1 style="color: #ffff00;">Research group</h1>
+      <p>
+
+      The project research group is composes by the master candidate 
+      	<a href="https://www.linkedin.com/in/bcsaldias/" target="_blank">Belén Saldías </a>
+      and her two advisors 
+      	<a href="http://kpichara.ing.puc.cl/" target="_blank">Karim Pichara </a>
+      and 
+      	<a href="http://iacs.seas.harvard.edu/people/pavlos-protopapas" target="_blank">Pavlos Protopapas</a>.
+      </p>
+      <p>
+
+      The current investigation involves the development of experimental and computational approaches for studying how to combine bayesian inference in probabilistic graphical models and crowdsourcing in order to get the most accurate classification possible.
+
+      </p>
+
+
+      <img src="{% static 'img/group.jpg' %}" width="100%">
+      (From left to right, 
+      <a href="http://www.ing.uc.cl/cuerpo-docente/pieringer/" target="_blank">
+      Christian Pieringer</a>
+      , 
+      <a href="http://iacs.seas.harvard.edu/people/pavlos-protopapas" target="_blank">
+      Pavlos Protopapas 
+      </a>, 
+      <a href="https://www.linkedin.com/in/bcsaldias/" target="_blank">
+      Belén Saldías 
+      </a>and 
+      <a href="http://kpichara.ing.puc.cl/" target="_blank">
+      Karim Pichara</a>).
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1 style="color: #ffff00;">Objectives</h1>
+      <p>
+		
+		<p>In machine learning, classification is a supervised problem of identifying to which class a new observation belongs. This presents many difficulties such as: small training sets, high cost of building a training set, and it is likely they can't even represent all the domains and areas where the true classes live. One of the main challenges is the situation where unlabeled data is abundant, and even though there is a crowd of experts, manually labeling is expensive. The researched method proposes a possible cheaper way to asking by keeping accuracy metrics.</p>
+		<p><span style="color: #ffff00;">Goal</span>: Find the correct class of a given object. We select a subset of the classified objects to be labeled again by a crowd of experts. Since each expert fails differently and its expertise is assumed independent to the crowd, each expert has its own credibility, and error (confusion) matrix.</p>
+		<p><span style="color: #ffff00;">Side Goal</span>: Estimate the credibility of the user. The current astronomical data set will be used to messure performance with real votes and humans, where the classes of the stars are in different proportions. The main results (with automatic classifiers) show that is possible to ask for less information by keeping the accuracy of the common way to label data (asking for directly for the class of a given object).</p>
+
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1 style="color: #ffff00;">Users</h1>
+      <p>
+        Each user is presented to a random serie of questions. Per each aswered question  the labeler is rewarded with a different amount of points depending on how accurated it has been until the last question. The accuracy score of each labeler is updated only with certain objects (for which the research group know the ground truth).
+      </p>
+      <p>
+		There are eight different badges, they depend on the labeler accuracy over the time.
+      </p>
+      <h5 style="color: #ffff00;">The champion</h5>
+      <p>
+		The champion will be whom reach more points once finished all its questions. In case of tie, the winner will be the more accurate one between the tied champions, by the end of the project.
+      </p>
+      <h5 style="color: #ffff00;">Prize</h5>
+      <p>
+		The winner will be rewarded with: !
+      </p>
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}

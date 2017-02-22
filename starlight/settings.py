@@ -49,12 +49,12 @@ MIDDLEWARE_CLASSES = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+#    'django.middleware.csrf.CsrfViewMiddleware',
 
 ROOT_URLCONF = 'starlight.urls'
 
@@ -91,6 +91,11 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+
 # AUTH_PASSWORD_VALIDATORS = [
 #     {
 #         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -123,7 +128,7 @@ DATABASES['default'].update(db_from_env)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'project-starlight.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'hcds.herokuapp.com']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

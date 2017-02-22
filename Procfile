@@ -1,1 +1,1 @@
-web: gunicorn starlight.wsgi
+web: gunicorn starlight.wsgi:application --log-file -

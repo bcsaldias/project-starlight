@@ -6,20 +6,30 @@
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
+      <a href="{% url 'main:about' %}">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        About
+      </a>
+    </li>
+    <li class="sidebar-menu-item">
       <a href="{% url 'user:profile' request.user.username %}">
         <i class="fa fa-tasks" aria-hidden="true"></i>
         Profile
       </a>
     </li>
     <li class="sidebar-menu-header">
-      <h6 class="sidebar-menu-header-text">Projects</h6>
+      <h6 class="sidebar-menu-header-text">Start Voting!</h6>
     </li>
     <hr class="sidebar-menu-break" />
     <li class="sidebar-menu-item">
       <a href="{% url 'hits:list' %}">
         <i class="fa fa-star" aria-hidden="true"></i>
-        HITS
+        Catalina DB
       </a>
+      <!--<a href="{% url 'hits:list' %}">
+        <i class="fa fa-star" aria-hidden="true"></i>
+        TripAdvisor 
+      </a>-->
     </li>
     <li class="sidebar-menu-header">
       <h6 class="sidebar-menu-header-text">Rankings</h6>
@@ -28,19 +38,17 @@
     <li class="sidebar-menu-item">
       <a href="{% url 'user:ranking' %}">
         <i class="fa fa-sort" aria-hidden="true"></i>
+        Harvard Chile
+      </a>
+      <a href="{% url 'user:ranking' %}">
+        <i class="fa fa-sort" aria-hidden="true"></i>
         All Time
       </a>
     </li>
     <li class="sidebar-menu-header">
-      <h6 class="sidebar-menu-header-text">Miscellaneous</h6>
+      <h6 class="sidebar-menu-header-text">Extra</h6>
     </li>
     <hr class="sidebar-menu-break" />
-    <li class="sidebar-menu-item">
-      <a href="{% url 'main:about' %}">
-        <i class="fa fa-book" aria-hidden="true"></i>
-        About
-      </a>
-    </li>
     <li class="sidebar-menu-item">
       <a href="{% url 'main:learn' %}">
         <i class="fa fa-graduation-cap" aria-hidden="true"></i>

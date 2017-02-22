@@ -2,40 +2,116 @@
 $(function() {
   var hits_id, url;
   hits_id = $('#hits_id').attr('data-value');
-  url = '/hits/' + hits_id + '/data';
-  $.getJSON(url, function(result) {
-    var datapoint, err, i, lcdata, len, lightcurve, mag, mjd, periodLS, profile;
-    $("#vote").removeAttr("hidden");
-    profile = JSON.parse(result['profile'])[0];
-    lightcurve = JSON.parse(result['lightcurve']);
-    periodLS = profile['fields']['periodLS'];
-    mjd = Array();
-    mag = Array();
-    err = Array();
-    for (i = 0, len = lightcurve.length; i < len; i++) {
-      datapoint = lightcurve[i];
-      mjd.push(datapoint['fields']['mjd']);
-      mag.push(datapoint['fields']['mag']);
-      err.push(datapoint['fields']['err']);
-    }
-    lcdata = {
-      mjd: mjd,
-      mag: mag,
-      err: err
-    };
-    mainPlot(lcdata);
-    return foldPlot(lcdata, periodLS);
+  PeriodLS = $('#PeriodLS').attr('data-value');
+});
+
+$(function(){
+ $("#ceph_button").click(function(e) {
+    post_full_vote("CEP","abc");
   });
-  return $("#vote").click(function(e) {
-    var label;
-    e.preventDefault();
-    label = $("#select-star").find(':selected').val();
+});
+$(function(){
+ $("#eb_button").click(function(e) {
+    post_full_vote("EB","abc");
+  });
+});
+$(function(){
+ $("#lpv_button").click(function(e) {
+    post_full_vote("LPV","abc");
+  });
+});
+$(function(){
+ $("#rrl_button").click(function(e) {
+    post_full_vote("RRLYR","abc");
+  });
+});
+
+$(function(){
+ $("#yes_button").click(function(e) {
+    post_vote($('#private_question').attr('data-value'), true,
+      $('#question_type').attr('data-value')
+      );
+  });
+ 
+});
+
+$(function(){
+ $("#no_button").click(function(e) {
+    post_vote($('#private_question').attr('data-value'), false,
+      $('#question_type').attr('data-value')
+      );
+  });
+ 
+});
+
+function post_full_vote(vote, question_type) {
+
+    var hits_id, url;
+    hits_id = $('#hits_id').attr('data-value');
     url = '/hits/' + hits_id + '/';
+    
     return $.post(url, {
-      'label': label
+      'value': vote,
+      'question_type': question_type,
+      'milliseconds': beforeunload
     }, function(result) {
       var new_url, next, point;
       next = result['next'];
+      new_url = '/hits/' + next + '/';
+      window.history.pushState({}, hits_id, url);
+      return window.location.replace(new_url);
+    
+    })
+
+}
+
+function post_vote(question, vote, question_type) {
+    var hits_id, url;
+    hits_id = $('#hits_id').attr('data-value');
+    url = '/hits/' + hits_id + '/';
+    
+    return $.post(url, {
+      'value': vote,
+      'private_question': question,
+      'question_type': question_type,
+      'milliseconds': beforeunload()
+    }, function(result) {
+      var new_url, next, point;
+      next = result['next'];
+      new_url = '/hits/' + next + '/';
+      window.history.pushState({}, hits_id, url);
+      return window.location.replace(new_url);
+    
+    })
+}
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '89'|| e.keyCode == '39') {
+        //console.log("yes");
+        post_vote($('#private_question').attr('data-value'), true,
+        $('#question_type').attr('data-value')
+        );
+
+    }
+    else if (e.keyCode == '78' || e.keyCode == '37') {
+        //console.log("no");
+        post_vote($('#private_question').attr('data-value'), false,
+        $('#question_type').attr('data-value')
+        );
+    }
+
+}
+
+$(window).scroll(function(){
+  $("#star-info").css({"margin-top": ($(window).scrollTop()) + "px"});
+});
+
+/*
       point = result['point'];
       if (point >= 1) {
         point = "+" + point;
@@ -48,10 +124,31 @@ $(function() {
           return window.location.replace(new_url);
         });
       } else {
-        new_url = '/hits/' + next + '/';
-        window.history.pushState({}, hits_id, url);
-        return window.location.replace(new_url);
-      }
-    });
-  });
-});
+*/
+
+let startDate = new Date();
+let elapsedTime = 0;
+
+const focus = function() {
+    startDate = new Date();
+};
+
+/*const blur = function() {
+    const endDate = new Date();
+    const spentTime = endDate.getTime() - startDate.getTime();
+    elapsedTime += spentTime;
+};*/
+
+const beforeunload = function() {
+    const endDate = new Date();
+    const spentTime = endDate.getTime() - startDate.getTime();
+    elapsedTime += spentTime;
+    return elapsedTime;
+    //console.log("spent time", elapsedTime/1000);
+    // elapsedTime contains the time spent on page in milliseconds
+};
+
+window.addEventListener('onLoad', focus);
+//window.addEventListener('focus', focus);
+//window.addEventListener('blur', blur);
+//window.addEventListener('beforeunload', beforeunload);
