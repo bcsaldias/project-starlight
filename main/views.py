@@ -6,9 +6,9 @@ from django.core.urlresolvers import reverse
 
 
 def index(request):
-    if request.user.is_authenticated():
-        path = reverse('user:profile', kwargs={'username': request.user.username})
-        return redirect(path)
+    #if request.user.is_authenticated():
+    #    path = reverse('user:profile', kwargs={'username': request.user.username})
+    #    return redirect(path)
 
     return render(request, 'main/index.html')
 
@@ -25,6 +25,12 @@ def learn(request):
         'title': 'learn'
     }
     return render(request, 'main/learn.html', context)
+
+def gratitude(request):
+    context = {
+        'title': 'learn'
+    }
+    return render(request, 'main/gratitude.html', context)
 
 
 

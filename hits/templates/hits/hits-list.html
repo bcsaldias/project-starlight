@@ -11,11 +11,43 @@ HiTS
   <div class="col-xs-12">
     <div class="card card-starlight">
       <br>
-      <h2><span style="color:yellow;">Harvard-Chile Data Science School </span>- Crowdsourcing</h2>
+      <h2 style="color: #ffff00;">Grand Prize!</h2>
+      <p>
+        
+        <div class="row">
+            <div class="col-xs-4">
+                <img align="right" id="alogo" src="https://www.giftocard.com/wp-content/uploads/2016/06/amazon50.png" width="90%">
+            </div>
+            <div class="col-xs-4">
+                <h3 style="text-align: center;"> If you win you will get a $50 Amazon.com eGift Card! </h3>
+            </div>
+            <div class="col-xs-4">
+                <img align="right" id="alogo" src="https://www.giftocard.com/wp-content/uploads/2016/06/amazon50.png" width="90%">
+            </div>
+        </div>
+        
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h2><span style="color:yellow;">Crowdsourcing task</span> - Catalina DB</h2>
 
+      <p>
+        In this view you will see how many votes you have already given. You will not be able to see you old responses or change them. We will record the time spent per each question.</p>
+      <p>
+        In order to finish this task you have to give <span style="color:yellow;">{{max_count}} </span>votes. Do not worry about failing, just do your best guess!
+      </p>
+                  <h5 style="color: #ffff00;">Deadline</h5>
+      <p>
+    March 15 (included), 2017. Only users with 100% of progress compete for the prize.
+      </p>
       <p style="text-align: right; ">
         <a style="color:yellow;"
-        href="{% url 'hits:learn' %}" target="_blank">Learn more before vote!</a>
+        href="{% url 'hits:learn' %}" target="_blank">Learn more before start voting!</a>
       </p>
     </div>
   </div>
@@ -81,7 +113,7 @@ HiTS
               <!-- <td>{{ hits.periodLS|floatformat:3 }}</td>
               <td>{{ hits.mag_mean|floatformat:3 }}</td> -->
               {% if hits.votes_given %}
-              <td>{{ hits.votes_given }}</td>
+              <td>{{ hits.votes_given }} / {{ hits.total_votes }}</td>
               {% else %}
               <td> - </td>
               {% endif %}
@@ -98,6 +130,7 @@ HiTS
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
+      <br>
       <h3 class="text-xs-center">% Complete</h3>
       <div class="knob-progress">
           <input type="text" value={{ progress_hits.percent_complete|floatformat:0 }} id="progress"/>

@@ -36,6 +36,7 @@ class Vote(models.Model):
     question = models.CharField(max_length=15, null=True)
     value = models.BooleanField()
     milliseconds = models.BigIntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ['expert','object','question']
@@ -63,7 +64,8 @@ class FullVote(models.Model):
     object = models.ForeignKey(CatalinaObject, on_delete=models.CASCADE, related_name="full_votes")
     value = models.CharField(max_length=8, null=True, choices=CHOICES)
     milliseconds = models.BigIntegerField(default=0)
-
+    created = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
         unique_together = ['expert','object']
 

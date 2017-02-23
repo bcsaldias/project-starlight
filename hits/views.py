@@ -24,11 +24,15 @@ def hits_list(request):
     num_voted_yn = expert.pendingquestion_set.count()
     num_voted_abc = expert.fullpendingquestion_set.count()
 
-    hits_query = Vote.objects.filter(expert=expert)
-    hits_query = [hits.object for hits in hits_query]
+    hits_query = [hits.object for hits in Vote.objects.filter(expert=expert)]
     hits_query += [hits.object for hits in FullVote.objects.filter(expert=expert)]
 
+    hits_query_pendings = [hits.object for hits in PendingQuestion.objects.filter(expert=expert)]
+    hits_query_pendings += [hits.object for hits in FullPendingQuestion.objects.filter(expert=expert)]
+
+
     counter_hits = Counter(hits_query)
+    counter_total_hits = Counter(hits_query+hits_query_pendings)
     hits_query = list(set(hits_query))
     #hits_query = sorted(hits_query, key=lambda x: int(x.catalina_id))
 
@@ -72,6 +76,7 @@ def hits_list(request):
         hits = dict()
         hits['hits_id'] = hits_instance
         hits['votes_given'] = counter_hits[hits_instance]
+        hits['total_votes'] = counter_total_hits[hits_instance]
         hits_list.append(hits)
 
     context = {
@@ -81,6 +86,7 @@ def hits_list(request):
         'prev': prev_pg,
         'pages': pages,
         'max_page': max_page,
+        'max_count': max_count,
         'user': user,
         'progress_hits': progress_hits,
         'title': 'hits-list'
@@ -120,7 +126,8 @@ def hits_random(request):
 
     return redirect(path)
 
-def calculate_point(expert):
+def calculate_point(expert, _training):
+
     _votes = Vote.objects.filter(expert=expert)
     _full_votes = FullVote.objects.filter(expert=expert)
 
@@ -162,6 +169,8 @@ def hits_detail(request, hits_id):
         question_type = request.POST['question_type']
         milliseconds = request.POST['milliseconds']
 
+        _training = hits._training
+
         if question_type == 'yn':
             question = request.POST['private_question']
             question = PendingQuestion.objects.get(expert=expert, object=hits, question=question)
@@ -198,7 +207,9 @@ def hits_detail(request, hits_id):
 
         point = None
         if created:
-            point = calculate_point(expert)
+            print("hola")
+            point = calculate_point(expert, _training)
+            print("chao")
             expert.update_level(point)
 
         json_response = {

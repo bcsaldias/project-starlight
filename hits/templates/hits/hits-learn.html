@@ -35,7 +35,7 @@ Learn: HiTS
   <div class="col-xs-12">
     <div class="card card-starlight">
       <br>
-      <h3 style="color: #ffff00;">Cepheid-II (Cepheid)</h3>
+      <h3 style="color: #ffff00;">Cepheid-II (CEPH)</h3>
         <p>Type II Cepheids are metal-poor Cepheids that are found in galaxy halos. They are divided into three sub-classes that separated by increasing period and luminosity as defined by Wallerstein (2002).</p>
         <p>These sub-classes are BL Herculis variables (BL Her), with <span style="color: #cc99ff;">periods</span> between <span style="color: #cc99ff;">1 and 5 days</span>, W Virginis variables (W Vir) with <span style="color: #cc99ff;">periods</span> of<span style="color: #cc99ff;"> 5 to 20 days</span>, and RV Tauri variables (RV Tau) with <span style="color: #cc99ff;">periods</span> greater than <span style="color: #cc99ff;">20 days</span>. </p>
         
@@ -49,11 +49,11 @@ Learn: HiTS
       <p></p>
       <p></p>
       <p style="color: #ffff00;">Examples</p>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_65.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_86.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_169.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_442.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/CEP_633.png' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="cep0"><img src="{% static 'img/examples/CEP_256.png' %}" width=150 class="img-thumbnail" next="#cep1" previous="#cep4"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="cep1"><img src="{% static 'img/examples/CEP_65.png' %}" width=150 class="img-thumbnail" next="#cep2" previous="#cep0"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="cep2"><img src="{% static 'img/examples/CEP_277.png' %}" width=150 class="img-thumbnail" next="#cep3" previous="#cep1"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="cep3"><img src="{% static 'img/examples/CEP_804.png' %}" width=150 class="img-thumbnail" next="#cep4" previous="#cep2"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="cep4"><img src="{% static 'img/examples/CEP_146.png' %}" width=150 class="img-thumbnail" next="#cep0" previous="#cep3"/></a>
     </div>
   </div>
 </div>
@@ -62,23 +62,21 @@ Learn: HiTS
   <div class="col-xs-12">
     <div class="card card-starlight">
       <br>
-      <h3 style="color: #ffff00;">Eclipsing Post Common Envelope Binary (Eclipsing Binary)</h3>
+      <h3 style="color: #ffff00;">Eclipsing Binary (EB)</h3>
       <p>
-Compact binaries can often exhibit orbital <span style="color: #cc99ff;">periods</span> below <span style="color: #cc99ff;">0.2 days</span>. Such binaries include systems with white dwarfs (WDs) and subdwarfs (mainly sdB’s and sdO’s). Post-common-envelope binaries (PCEBs) include WDdM systems and are related to interacting close binaries such as CVs. These systems can aid our understanding of the complex common envelope evolutionary phase in binary systems. Subdwarf binaries (HW Vir stars) may also form through a common envelope phase.  Not all such system have to be eclipsing to be detected as binaries.
+        Eclipsing binaries include contact, semi-detached and detached systems. For this application we use only the contact binaries.
       </p>
 
-      <p>
+        <p style="color: #ffff00;">Contact binaries EW’s. </p>
+        <p>Since these systems are in contact mass flows from one star to the other and both stars usually have similar temperatures and types. Slight differences in the eclipse depth are still possible and reflect remnant differences in the temperature of the component stars. In general contact binaries have previously been found to have a minimum <span style="color: #cc99ff;">period</span> near <span style="color: #cc99ff;">0.22 days</span> (Rucin-ski et al. 1992, 1997).</p>
 
-In these light curves the modulation is due to the distortion of the secondary star. The bottom light curve shows an example where the hot WD primary is eclipsed by the distorted companion. The other lightcurves do do exhibit eclipses. Similar light curves are observed for gamma-ray pulsars such as PSR J2339-0533 (Romani et al. 2011) and AY Sex (Wang et al. 2009; Tam et al. 2010). Approximately 100 compact binaries were found in this work of which approximately half are new discoveries. Hence, this work constitutes a significant addition. However, further work is required to identify the component stars in each system.
-
-      </p>
 
       <p style="color: #ffff00;">Examples</p>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_66.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_181.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_241.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_324.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/EB_328.png' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="eb0"><img src="{% static 'img/examples/EB_626.png' %}" width=150 class="img-thumbnail" next="#eb1" previous="#eb4"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="eb1"><img src="{% static 'img/examples/EB_757.png' %}" width=150 class="img-thumbnail" next="#eb2" previous="#eb0"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="eb2"><img src="{% static 'img/examples/EB_687.png' %}" width=150 class="img-thumbnail" next="#eb3" previous="#eb1"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="eb3"><img src="{% static 'img/examples/EB_398.png' %}" width=150 class="img-thumbnail" next="#eb4" previous="#eb2"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="eb4"><img src="{% static 'img/examples/EB_580.png' %}" width=150 class="img-thumbnail" next="#eb0" previous="#eb3"/></a>
     </div>
   </div>
 </div>
@@ -89,15 +87,15 @@ In these light curves the modulation is due to the distortion of the secondary s
       <br>
       <h3 style="color: #ffff00;">Long-period variable (LPV)</h3>
       
-      <p>Long-Period Variables<br /><br />LPVs are cool pulsating giant stars with <span style="color: #cc99ff;">periods</span> ranging from a <span style="color: #cc99ff;">few to 1,000 days</span>. The amplitude of variation changes slightly between cycles so the the scatter in the phased lightcurve is greater than the actual photometric uncertainty. However, the brightest LPVs are saturated in catalina data.</p>
+      <p>LPVs are cool pulsating giant stars with <span style="color: #cc99ff;">periods</span> ranging from a <span style="color: #cc99ff;">few to 1,000 days</span>. The amplitude of variation changes slightly between cycles so the the scatter in the phased lightcurve is greater than the actual photometric uncertainty. However, the brightest LPVs are saturated in catalina data.</p>
       <p>
       </p>
       <p style="color: #ffff00;">Examples</p>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/LPV_89.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/LPV_177.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/LPV_281.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/LPV_581.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/LPV_607.png' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="lpv0"><img src="{% static 'img/examples/LPV_348.png' %}" width=150 class="img-thumbnail" next="#lpv1" previous="#lpv4"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="lpv1"><img src="{% static 'img/examples/LPV_177.png' %}" width=150 class="img-thumbnail" next="#lpv2" previous="#lpv0"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="lpv2"><img src="{% static 'img/examples/LPV_268.png' %}" width=150 class="img-thumbnail" next="#lpv3" previous="#lpv1"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="lpv3"><img src="{% static 'img/examples/LPV_100.png' %}" width=150 class="img-thumbnail" next="#lpv4" previous="#lpv2"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="lpv4"><img src="{% static 'img/examples/LPV_281.png' %}" width=150 class="img-thumbnail" next="#lpv0" previous="#lpv3"/></a>
     </div>
   </div>
 </div>
@@ -109,20 +107,20 @@ In these light curves the modulation is due to the distortion of the secondary s
       <br>
       <h3 style="color: #ffff00;">RR Lyrae (RRLYR)</h3>
       <p>
-RR Lyrae stars are pulsational variables that can be used as standard candles (Catelan 2009, and references therein). In Drake et al. (2013a,b) we used CSS data to find RR Lyrae in the halo and thus determine the distance and location to the Sagittarius tidal stream. 
+RR Lyrae stars are pulsational variables that can be used as standard candles (Catelan 2009, and references therein). 
 
       </p>
       <p>
 
-These are <span style="color: #cc99ff;">short-period (.05 to 1.2 days)</span>, pulsating, white giant stars, usually of spectral class A. They are older and less massive than Cepheids. The amplitude of variation of RR Lyrae stars is generally from <span style="color: #cc99ff;">0.3 to 2 magnitudes</span>Z.The average absolute magnitude of an RR Lyrae is about 0.75, only 40 or 50 times brighter than our Sun.
+These are <span style="color: #cc99ff;">short-period (.05 to 1.2 days)</span>, pulsating, white giant stars, usually of spectral class A. They are older and less massive than Cepheids. The amplitude of variation of RR Lyrae stars is generally from <span style="color: #cc99ff;">0.3 to 2 magnitudes</span>.The average absolute magnitude of an RR Lyrae is about 0.75, only 40 or 50 times brighter than our Sun.
 
       </p>
       <p style="color: #ffff00;">Examples</p>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_617.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_695.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_784.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_794.png' %}" width=150 class="img-thumbnail" /></a>
-      <a href="#" data-toggle="modal" data-target="#image-modal"><img src="{% static 'img/examples/RRLYR_810.png' %}" width=150 class="img-thumbnail" /></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="rrl0"><img src="{% static 'img/examples/RRLYR_695.png' %}" width=150 class="img-thumbnail" next="#rrl1" previous="#rrl4"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="rrl1"><img src="{% static 'img/examples/RRLYR_810.png' %}" width=150 class="img-thumbnail" next="#rrl2" previous="#rrl0"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="rrl2"><img src="{% static 'img/examples/RRLYR_784.png' %}" width=150 class="img-thumbnail" next="#rrl3" previous="#rrl1"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="rrl3"><img src="{% static 'img/examples/RRLYR_617.png' %}" width=150 class="img-thumbnail" next="#rrl4" previous="#rrl2"/></a>
+      <a href="#" data-toggle="modal" data-target="#image-modal" id="rrl4"><img src="{% static 'img/examples/RRLYR_794.png' %}" width=150 class="img-thumbnail" next="#rrl0" previous="#rrl3"/></a>
     </div>
   </div>
 </div>

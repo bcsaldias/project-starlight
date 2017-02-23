@@ -4,6 +4,39 @@ $(function() {
     var target;
     e.preventDefault();
     target = $(this).find('img').attr('src');
+    next = $(this).find('img').attr('next');
+    previous = $(this).find('img').attr('previous');
     return $("#image-modal").find("img").attr('src', target);
   });
 });
+
+$(document).on('keydown',  function (e) {
+	    if (e.keyCode == '39') {
+			to_ret = $("#image-modal").find("img").attr('src', $(next).find("img").attr('src'));
+	    	next = $(next).find('img').attr('next');
+	    	previous = $($(next).find('img').attr('previous')).find('img').attr('previous');
+			return to_ret
+
+	    }
+	    else if(e.keyCode == '37') {
+			to_ret = $("#image-modal").find("img").attr('src', $(previous).find("img").attr('src'));
+	    	previous = $(previous).find('img').attr('previous');
+	    	next = $($(previous).find('img').attr('next')).find('img').attr('next');
+			return to_ret
+		}		
+	}
+);
+
+/*
+
+    e = e || window.event;
+    console.log("ho", e.keyCode);
+    if (e.keyCode == '89'|| e.keyCode == '39') {
+        $("#image-modal").find("img").attr('src', $(otra).attr('src')).modal('show');
+    }
+*/
+
+/*$("#pop").on("click", function() {
+   $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+});*/

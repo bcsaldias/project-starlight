@@ -34,7 +34,7 @@ Profile: {{ user.username }}
             <span>Points: 
               <span style="color:yellow;">{{ user.expert.points }}</span><br>
             </span>
-            <span>Current accuracy: 
+            <span>Global accuracy score: 
                 <span style="color:yellow;">{{ user.expert.current_accuracy }}</span>
             </span>
             <span class="pull-xs-left">Level up with accuracy: 
@@ -54,15 +54,40 @@ Profile: {{ user.username }}
       <br>
       <h2>Tasks</h2>
       <div id="progress-hits">
-        <h4 class="text-starlight-muted">Harvard Chile {{progress_hits.num_voted}} votes<small  class="text-starlight-purple">
+        <h4 class="text-starlight-muted">Catalina DB: {{progress_hits.num_voted}} votes <small  class="text-starlight-purple">
           {{ progress_hits.percent_complete|floatformat:2 }}% Complete
         </small>
         </h4>
+        <p>
+                    <span>Points: 
+              <span style="color:yellow;">{{ user.expert.points }}</span><br>
+            </span>
+                    <span>Current accuracy: 
+                <span style="color:yellow;">{{ user.expert.current_accuracy }}</span>
+            </span>
+        </p>
+        <p>
+        The maximum amount of points for this task are 10.000, it means, 100% accuracy score during all the voting process.</p>
         <progress class="progress progress-starlight" value="{{ progress_hits.num_voted }}" max="{{ progress_hits.max }}"></progress>
       </div>
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <p>
+        You will be presented to a random series of questions. Per each aswered question you will be rewarded with a different amount of points depending on how accurated you has been until the last question. Your accuracy score is updated only with certain objects (for which the research group know the ground truth) and refers to your proportion of right answers.
+      </p>
+      <p>
+    There are eight different badges (rookie, apprentice, ace, champion, master, grand master, guru, and luminary), they depend on the labeler accuracy over the time.
+      </p>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block right-side %}
