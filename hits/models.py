@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from user.models import Expert
 
 CHOICES = [ ('CEP','Cepheid'),
@@ -36,7 +36,8 @@ class Vote(models.Model):
     question = models.CharField(max_length=15, null=True)
     value = models.BooleanField()
     milliseconds = models.BigIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now)
+    nquestions = models.IntegerField()
 
     class Meta:
         unique_together = ['expert','object','question']
@@ -50,6 +51,7 @@ class PendingQuestion(models.Model):
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
     object = models.ForeignKey(CatalinaObject, on_delete=models.CASCADE)
     question = models.CharField(max_length=25, null=True, choices=CHOICES)
+    nquestions = models.IntegerField()
 
     class Meta:
         unique_together = ['expert','object','question']
@@ -64,7 +66,9 @@ class FullVote(models.Model):
     object = models.ForeignKey(CatalinaObject, on_delete=models.CASCADE, related_name="full_votes")
     value = models.CharField(max_length=8, null=True, choices=CHOICES)
     milliseconds = models.BigIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now)
+    nquestions = models.IntegerField(default=1)
+
     
     class Meta:
         unique_together = ['expert','object']
@@ -76,6 +80,7 @@ class FullPendingQuestion(models.Model):
 
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
     object = models.ForeignKey(CatalinaObject, on_delete=models.CASCADE)
+    nquestions = models.IntegerField(default=1)
 
     class Meta:
         unique_together = ['expert','object']

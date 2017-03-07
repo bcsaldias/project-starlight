@@ -21,7 +21,7 @@ from django.conf.urls import (handler400, handler403, handler404, handler500)
 handler400 = 'hits.views.hits_list'
 handler403 = 'hits.views.hits_list'
 handler404 = 'hits.views.hits_list'
-handler500 = 'hits.views.hits_list'
+handler500 = 'main.views.index'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

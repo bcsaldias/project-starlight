@@ -1,5 +1,5 @@
 from math import log
-
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,7 +26,7 @@ class Expert(models.Model):
     initial_yn_questions = models.PositiveIntegerField(default=0)
     initial_abc_questions = models.PositiveIntegerField(default=0)
 
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.user.username
@@ -35,7 +35,6 @@ class Expert(models.Model):
     def current_accuracy(self):
         points = self.points 
         responses = max(1,self.vote_set.count()+self.fullvote_set.count())
-        print("acc score", round(points/(responses*self.factor),4))
         return round(points/(responses*self.factor),4)
 
     @property
@@ -51,7 +50,6 @@ class Expert(models.Model):
 
     @property
     def factor(self):
-        print("factor", 10*1000/(self.initial_yn_questions + self.initial_abc_questions))
         return 10*1000/(self.initial_yn_questions + self.initial_abc_questions)
 
 

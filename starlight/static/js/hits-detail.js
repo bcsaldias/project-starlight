@@ -89,21 +89,26 @@ document.onkeydown = checkKey;
 
 function checkKey(e) {
 
-    e = e || window.event;
+    question_type = $('#question_type').attr('data-value');
 
-    if (e.keyCode == '89'|| e.keyCode == '39') {
-        //console.log("yes");
-        post_vote($('#private_question').attr('data-value'), true,
-        $('#question_type').attr('data-value')
-        );
+    if (question_type == 'yn'){
+          e = e || window.event;
+          if (e.keyCode == '89'|| e.keyCode == '39') {
+              //console.log("yes");
+              post_vote($('#private_question').attr('data-value'), true,
+              $('#question_type').attr('data-value')
+              );
+
+          }
+          else if (e.keyCode == '78' || e.keyCode == '37') {
+              //console.log("no");
+              post_vote($('#private_question').attr('data-value'), false,
+              $('#question_type').attr('data-value')
+              );
+          }
 
     }
-    else if (e.keyCode == '78' || e.keyCode == '37') {
-        //console.log("no");
-        post_vote($('#private_question').attr('data-value'), false,
-        $('#question_type').attr('data-value')
-        );
-    }
+
 
 }
 

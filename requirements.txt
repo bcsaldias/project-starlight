@@ -6,3 +6,4 @@ whitenoise==3.2
 numpy==1.11.1rc1
 Pillow==3.1.2
 django-cors-headers==1.1.0
+pandas==0.19.2

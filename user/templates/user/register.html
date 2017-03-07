@@ -23,6 +23,14 @@ function Loader(form) {
       <form class="form-signup center-block" method="post" id="register_form" autocomplete="off" name="register_form">
         {% csrf_token %}
         <fieldset class="form-group">
+          <label for="inputFirstName" class="sr-only">Name </label>
+          <input type="text" class="form-control" id="inputFirstName" placeholder="Name" name="first_name" required autofocus>
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="inputLastName" class="sr-only">Last Name </label>
+          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="last_name" required autofocus>
+        </fieldset>
+        <fieldset class="form-group">
           <label for="inputUsername" class="sr-only">Username </label>
           <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" required autofocus>
         </fieldset>

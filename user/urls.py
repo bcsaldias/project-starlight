@@ -8,9 +8,9 @@ urlpatterns = [
     url(r'login/$', views.login_user, name="login"),
     url(r'register/$', views.register, name="register"),
     url(r'logout$', views.logout_user, name="logout"),
-
     url(r'ranking/$', views.ranking, name="ranking"),
-
+    url(r'password/$', views.change_password, name='password'),
+    url(r'change-name/$', views.change_name, name='change-name'),
     url(r'(?P<username>[\w]+)/$', views.profile, name="profile"),
     # url(r'(?P<username>[\w]+)/votes$', views.votes, name="votes"),
     # url(r'(?P<username>[\w]+)/activities$', views.activities, name="activities"),

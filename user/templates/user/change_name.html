@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+{{ block.super }}
+Register
+{% endblock %}
+
+{% block content %}
+
+<main id="register">
+    <br>
+  <div class="container">
+    <div class="card auth-card center-block">
+      <h2>Change name</h2>
+      <form class="form-signup center-block" method="post" id="register_form" autocomplete="off" name="register_form">
+        {% csrf_token %}
+
+        <fieldset class="form-group">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" class="form-control" id="oldPassword" name="old_password"  placeholder="Password" required>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="inputFirstName" class="sr-only">Name </label>
+          <input type="text" class="form-control" id="inputFirstName" placeholder="Name" name="first_name" required autofocus>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="inputLastName" class="sr-only">Last Name </label>
+          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="last_name" required autofocus>
+        </fieldset>
+
+        <button class="btn btn-lg btn-starlight btn-block" type="submit">Save changes</button>
+      </form>
+    
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+

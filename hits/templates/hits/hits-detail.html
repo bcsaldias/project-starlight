@@ -42,35 +42,12 @@ CatalinaObject: {{ ID }}
   </div>
 </div>
 
-{% if question == 'Long-period variable' %}
+{% if question == 'Cepheid' or question_type != 'yn'%}
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
       <br>
-      <h1><span style="color:yellow;">{{question}} stars</span> examples:</h1>
-      <br>
-          <img src="{% static 'img/examples/LPV_348.png' %}" width="100%"> 
-          <p>
-          </p>
-          <img src="{% static 'img/examples/LPV_177.png' %}" width="100%"> 
-          <p>
-          </p>
-          <img src="{% static 'img/examples/LPV_268.png' %}" width="100%">           
-          <p>
-          </p>
-          <img src="{% static 'img/examples/LPV_100.png' %}" width="100%">           
-          <p>
-          </p>
-          <img src="{% static 'img/examples/LPV_281.png' %}" width="100%"> 
-    </div>
-  </div>
-</div>
-{% elif question == 'Cepheid' %}
-<div class="row">
-  <div class="col-xs-12">
-    <div class="card card-starlight">
-      <br>
-      <h1><span style="color:yellow;">{{question}} stars</span> examples:</h1>
+      <h1><span style="color:yellow;">Cepheid stars</span> examples:</h1>
       <br>
           <img src="{% static 'img/examples/CEP_256.png' %}" width="100%"> 
           <p>
@@ -88,35 +65,14 @@ CatalinaObject: {{ ID }}
     </div>
   </div>
 </div>
-{% elif question == 'RR Lyrae' %}
+{% endif %}
+
+{% if question == 'Eclipsing Binary' or question_type != 'yn' %}
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">
       <br>
-      <h1><span style="color:yellow;">{{question}} stars</span> examples:</h1>
-      <br>
-          <img src="{% static 'img/examples/RRLYR_695.png' %}" width="100%"> 
-          <p>
-          </p>
-          <img src="{% static 'img/examples/RRLYR_810.png' %}" width="100%"> 
-          <p>
-          </p>
-          <img src="{% static 'img/examples/RRLYR_784.png' %}" width="100%">           
-          <p>
-          </p>
-          <img src="{% static 'img/examples/RRLYR_617.png' %}" width="100%">           
-          <p>
-          </p>
-          <img src="{% static 'img/examples/RRLYR_794.png' %}" width="100%"> 
-    </div>
-  </div>
-</div>
-{% elif question == 'Eclipsing Binary' %}
-<div class="row">
-  <div class="col-xs-12">
-    <div class="card card-starlight">
-      <br>
-      <h1><span style="color:yellow;">{{question}} stars</span> examples:</h1>
+      <h1><span style="color:yellow;">Eclipsing Binary stars</span> examples:</h1>
       <br>
           <img src="{% static 'img/examples/EB_626.png' %}" width="100%"> 
           <p>
@@ -134,7 +90,61 @@ CatalinaObject: {{ ID }}
     </div>
   </div>
 </div>
-{% else %}
+{% endif %}
+
+{% if question == 'Long-period variable' or question_type != 'yn'%}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">Long-period variable stars</span> examples:</h1>
+      <br>
+          <img src="{% static 'img/examples/LPV_348.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_177.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_268.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_100.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/LPV_281.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+{% if question == 'RR Lyrae' or question_type != 'yn'%}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card card-starlight">
+      <br>
+      <h1><span style="color:yellow;">RR Lyrae stars</span> examples:</h1>
+      <br>
+          <img src="{% static 'img/examples/RRLYR_695.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_810.png' %}" width="100%"> 
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_784.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_617.png' %}" width="100%">           
+          <p>
+          </p>
+          <img src="{% static 'img/examples/RRLYR_794.png' %}" width="100%"> 
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+{% if question_type != 'yn' %}
 <div class="row">
   <div class="col-xs-12">
     <div class="card card-starlight">

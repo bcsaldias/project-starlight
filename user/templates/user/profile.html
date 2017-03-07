@@ -15,6 +15,9 @@ Profile: {{ user.username }}
       <a class="tooltip-bottom" data-tooltip="You can change your avatar in https://en.gravatar.com/">
       <img src="{{ user.email|gravatar_url:250 }}" class="img-rounded center-block" width=100% /> </a>
       <br>
+      {% if user.username == original_user %}
+          <p style="text-align: right;"><a href="password/"><span style="color: #00000C;">Change password  |  </span></a><a href="change-name/"><span style="color: #00000C;">Change name</span></a></p>
+      {% endif %}
     </div>
   </div>
   <div class="col-xs-6">
@@ -22,9 +25,11 @@ Profile: {{ user.username }}
       <div class="row">
         <div class="col-xs-12">
           <br>
-          <h3 id="username" data-value="{{ user.username }}">Hello 
-                    <span style="color:yellow;">{{ user.username }}</span>!</h3>
-          <br>
+          <h3 id="first_name" data-value="{{ user.first_name }}">Hello 
+                    <span style="color:yellow;">{{ user.first_name}} {{user.last_name}}</span>!</h3>
+
+          <h5 id="username" data-value="{{ user.username }}">You are 
+                    <span style="color:yellow;">{{ user.username }}</span>.</h5>
         </div>
       </div>
       <div class="row">
@@ -79,10 +84,10 @@ Profile: {{ user.username }}
     <div class="card card-starlight">
       <br>
       <p>
-        You will be presented to a random series of questions. Per each aswered question you will be rewarded with a different amount of points depending on how accurated you has been until the last question. Your accuracy score is updated only with certain objects (for which the research group know the ground truth) and refers to your proportion of right answers.
+        You will be presented to a random series of questions. Per each answered question, you will be rewarded with a different amount of points depending on how accurate you have been up to the last question. Your accuracy score is updated only with certain objects (for which the research group know the ground truth) and refers to your proportion of right answers.
       </p>
       <p>
-    There are eight different badges (rookie, apprentice, ace, champion, master, grand master, guru, and luminary), they depend on the labeler accuracy over the time.
+    There are eight different badges (rookie, apprentice, ace, champion, master, grand master, guru, and luminary), that depend on the labeler accuracy over the time.
       </p>
     </div>
   </div>

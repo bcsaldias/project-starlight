@@ -20,6 +20,12 @@ from .models import Expert
 from hits.models import CatalinaObject, PendingQuestion, FullPendingQuestion
 
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.utils.translation import ugettext as _
+
+
 def login_user(request):
     if request.user.is_authenticated():
         path = reverse('user:profile', kwargs={'username': request.user.username})
@@ -52,7 +58,9 @@ def register(request):
             password = request.POST['password1']
 
             expert = Expert.objects.create(user=user)
-
+            expert.user.first_name = request.POST['first_name']
+            expert.user.last_name = request.POST['last_name']
+            expert.user.save()
             # Create the questions.
             objects_training = CatalinaObject.objects.filter(_training=True)
             objects_validation = CatalinaObject.objects.filter(_validation=True)
@@ -67,9 +75,10 @@ def register(request):
                 Nq=np.random.randint(1, N_CHOICES+1)
                 ma=np.random.choice(CHOICES,Nq,replace=False)
                 for label in ma:
-                    p_question = PendingQuestion.objects.create(expert=expert, object=hits)
+                    p_question = PendingQuestion.objects.create(expert=expert, object=hits, nquestions = Nq)
                     p_question.question = label
                     _p_questions_yn.append(p_question)
+
                 p_question = FullPendingQuestion.objects.create(expert=expert, object=hits)
                 _p_questions_abc.append(p_question)
 
@@ -77,7 +86,7 @@ def register(request):
                 Nq=np.random.randint(1, N_CHOICES+1)
                 ma=np.random.choice(CHOICES,Nq,replace=False)
                 for label in ma:
-                    p_question = PendingQuestion.objects.create(expert=expert, object=hits)
+                    p_question = PendingQuestion.objects.create(expert=expert, object=hits, nquestions = Nq)
                     p_question.question = label
                     _p_questions_yn.append(p_question)
             
@@ -127,6 +136,36 @@ def ranking(request):
     }
     return render(request, 'user/ranking.html', context)
 
+@login_required(login_url='/user/login/')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, _('Your password was successfully updated!'))
+            return redirect('main:index')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'user/change_password.html', {'form': form})
+
+@login_required(login_url='/user/login/')
+def change_name(request):
+    if request.method == 'POST':
+        try:
+            print(request.user.first_name)
+            request.user.first_name = request.POST['first_name']
+            request.user.last_name = request.POST['last_name']
+            request.user.save()
+            path = reverse('user:profile', kwargs={'username': request.user.username})
+            return redirect(path)            
+        except:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'user/change_name.html', {'form': form})
 
 @login_required(login_url='/user/login/')
 def profile(request, username):
@@ -159,6 +198,7 @@ def profile(request, username):
         'user': user,
         'progress_hits': progress_hits,
         'title': 'profile',
+        'original_user': request.user.username
     }
     return render(request, 'user/profile.html', context)
 

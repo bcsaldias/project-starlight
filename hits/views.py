@@ -1,7 +1,7 @@
 import math, random
 from collections import Counter
 import numpy as np
-
+import pandas as pd
 from django.core import serializers
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
@@ -24,17 +24,18 @@ def hits_list(request):
     num_voted_yn = expert.pendingquestion_set.count()
     num_voted_abc = expert.fullpendingquestion_set.count()
 
-    hits_query = [hits.object for hits in Vote.objects.filter(expert=expert)]
-    hits_query += [hits.object for hits in FullVote.objects.filter(expert=expert)]
+    hits_query0 = list(map(lambda x: [x.object.pk, x.nquestions + int(x.object._training)], Vote.objects.filter(expert=expert)))
+    hits_query1 = list(map(lambda x: [x.object.pk, int(x.object._abc)], FullVote.objects.filter(expert=expert)))
 
-    hits_query_pendings = [hits.object for hits in PendingQuestion.objects.filter(expert=expert)]
-    hits_query_pendings += [hits.object for hits in FullPendingQuestion.objects.filter(expert=expert)]
+    hits_query0 = pd.DataFrame(hits_query0, columns=['object','nquestions'])
+    hits_query1 = pd.DataFrame(hits_query1, columns=['object','nquestions'])
+    counter_hits = Counter(pd.concat([hits_query0, hits_query1]).object)
 
+    hits_query0 = hits_query0.drop_duplicates('object')
 
-    counter_hits = Counter(hits_query)
-    counter_total_hits = Counter(hits_query+hits_query_pendings)
-    hits_query = list(set(hits_query))
-    #hits_query = sorted(hits_query, key=lambda x: int(x.catalina_id))
+    hits_query = pd.concat([hits_query0, hits_query1]).groupby('object').sum()
+    #hits_query['counter_total_hits'] = hits_query.nquestions.astype(int) + hits_query._extra.astype(int)
+
 
     max_count = expert.initial_abc_questions + expert.initial_yn_questions
 
@@ -72,11 +73,11 @@ def hits_list(request):
         pages = [page+i for i in range(-2,3,1) if 0 < page+i <= max_page]
 
     hits_list = []
-    for hits_instance in hits_query[start:end]:
+    for hits_instance in hits_query.index.values[start:end]:
         hits = dict()
         hits['hits_id'] = hits_instance
         hits['votes_given'] = counter_hits[hits_instance]
-        hits['total_votes'] = counter_total_hits[hits_instance]
+        hits['total_votes'] = int(hits_query.loc[hits_instance].nquestions)
         hits_list.append(hits)
 
     context = {
@@ -97,23 +98,25 @@ def hits_list(request):
 def generate_next(expert, hits=None):
 
     prob= random.random()
+    _t = False
     if prob > .15:
         hits_query = PendingQuestion.objects.filter(expert=expert)[:20]
         if len(hits_query) > 0:
-            hits_query = [hits.object.catalina_id for hits in hits_query]
+            hits_query = list(map(lambda x: x.object.catalina_id, hits_query))
             next_id = random.choice(hits_query)
             return next_id, 'yn'
+
+    hits_query = FullPendingQuestion.objects.filter(expert=expert)[:20]
+    if len(hits_query) > 0:
+        next_id = random.choice(hits_query)
+        return next_id.object_id, 'abc'
     else:
-        hits_query = FullPendingQuestion.objects.filter(expert=expert)[:20]
+        hits_query = PendingQuestion.objects.filter(expert=expert)[:20]
         if len(hits_query) > 0:
+            hits_query = list(map(lambda x: x.object.catalina_id, hits_query))
             next_id = random.choice(hits_query)
-            return next_id.object_id, 'abc'
-        else:
-            hits_query = PendingQuestion.objects.filter(expert=expert)[:20]
-            if len(hits_query) > 0:
-                hits_query = [hits.object.catalina_id for hits in hits_query]
-                next_id = random.choice(hits_query)
-                return next_id, 'yn'
+            return next_id, 'yn'
+
     return None, None
 
 
@@ -122,9 +125,14 @@ def hits_random(request):
     expert = get_object_or_404(Expert, user=request.user)
 
     next_id, question_type = generate_next(expert)
-    path = reverse('hits:detail', args={next_id})
+    
+    try:
+        path = reverse('hits:detail', args={next_id})
+        return redirect(path)
+    except:
+        pass
 
-    return redirect(path)
+    return hits_list(request)
 
 def calculate_point(expert, _training):
 
@@ -182,7 +190,7 @@ def hits_detail(request, hits_id):
                     value = False
                 vote = Vote.objects.create(expert=expert, object=hits, 
                                             value=value, question=question.question, 
-                                            milliseconds=milliseconds)
+                                            milliseconds=milliseconds, nquestions=question.nquestions)
                 vote.save()
                 question.delete()
                 created = True
@@ -207,9 +215,7 @@ def hits_detail(request, hits_id):
 
         point = None
         if created:
-            print("hola")
             point = calculate_point(expert, _training)
-            print("chao")
             expert.update_level(point)
 
         json_response = {
